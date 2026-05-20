@@ -760,7 +760,7 @@
         const tbody = document.querySelector('#studentTable tbody');
         if(!tbody) return;
         if(filtered.length === 0) { tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Tidak ada data<\/td><\/tr>'; return; }
-        tbody.innerHTML = filtered.map(s => `<tr><td><span class="badge">${escapeHtml(s.code)}</span><\/td><td><strong>${escapeHtml(s.name)}<\/strong><\/td><td>${escapeHtml(s.class)}<\/td><\/tr>`).join('');
+        tbody.innerHTML = filtered.map(s => `<tr><td><span class="badge">${escapeHtml(s.code)}<\/span><\/td><td><strong>${escapeHtml(s.name)}<\/strong><\/td><td>${escapeHtml(s.class)}<\/td><\/tr>`).join('');
     }
     
     let attendanceData = [];
@@ -793,18 +793,74 @@
     let classChart, attendanceChart;
     
     // Hitung persentase kehadiran dari data real
+    // HADIR = Total Siswa - (IZIN + SAKIT + ALPHA)
     function getOverallAttendance() {
-        let totalHadir = 0;
-        let totalAll = 0;
+        // Hitung total siswa per kelas dulu
+        const totalSiswaPerKelas = {};
+        studentData.forEach(s => {
+            const kelas = s.class;
+            if (kelas) {
+                totalSiswaPerKelas[kelas] = (totalSiswaPerKelas[kelas] || 0) + 1;
+            }
+        });
+        
+        // Hitung total tidak hadir (Izin, Sakit, Alpha)
+        let totalTidakHadir = 0;
+        let totalSiswaSemua = 0;
+        
         attendanceData.forEach(row => {
             const alasan = (row.Alasan || '').toUpperCase();
-            if (alasan === 'HADIR') totalHadir++;
-            if (alasan === 'HADIR' || alasan === 'IZIN' || alasan === 'SAKIT' || alasan === 'ALPHA') totalAll++;
+            if (alasan === 'IZIN' || alasan === 'SAKIT' || alasan === 'ALPHA') {
+                totalTidakHadir++;
+            }
         });
-        if (totalAll > 0) {
-            return Math.round((totalHadir / totalAll) * 100);
+        
+        // Total siswa semua kelas
+        for (const kelas in totalSiswaPerKelas) {
+            totalSiswaSemua += totalSiswaPerKelas[kelas];
         }
-        return 0;
+        
+        // Jika tidak ada data absensi, fallback ke 0
+        if (totalSiswaSemua === 0) return 0;
+        
+        const totalHadir = totalSiswaSemua - totalTidakHadir;
+        const percent = Math.round((totalHadir / totalSiswaSemua) * 100);
+        return percent > 0 ? percent : 0;
+    }
+    
+    // Hitung data untuk diagram lingkaran (Hadir, Izin, Sakit, Alpha)
+    function getAttendanceChartData() {
+        // Hitung total siswa per kelas
+        const totalSiswaPerKelas = {};
+        studentData.forEach(s => {
+            const kelas = s.class;
+            if (kelas) {
+                totalSiswaPerKelas[kelas] = (totalSiswaPerKelas[kelas] || 0) + 1;
+            }
+        });
+        
+        let totalSiswaSemua = 0;
+        for (const kelas in totalSiswaPerKelas) {
+            totalSiswaSemua += totalSiswaPerKelas[kelas];
+        }
+        
+        let totalIzin = 0, totalSakit = 0, totalAlpha = 0;
+        attendanceData.forEach(row => {
+            const alasan = (row.Alasan || '').toUpperCase();
+            if (alasan === 'IZIN') totalIzin++;
+            else if (alasan === 'SAKIT') totalSakit++;
+            else if (alasan === 'ALPHA') totalAlpha++;
+        });
+        
+        const totalTidakHadir = totalIzin + totalSakit + totalAlpha;
+        const totalHadir = totalSiswaSemua - totalTidakHadir;
+        
+        return {
+            hadir: totalHadir > 0 ? totalHadir : 0,
+            izin: totalIzin,
+            sakit: totalSakit,
+            alpha: totalAlpha
+        };
     }
     
     // Ambil tanggal terakhir dari data absensi
@@ -918,15 +974,8 @@
             });
         }
         
-        // Status Kehadiran (Doughnut Chart) dari data real
-        let totalHadir = 0, totalIzin = 0, totalSakit = 0, totalAlpha = 0;
-        attendanceData.forEach(row => {
-            const alasan = (row.Alasan || '').toUpperCase();
-            if(alasan === 'HADIR') totalHadir++;
-            else if(alasan === 'IZIN') totalIzin++;
-            else if(alasan === 'SAKIT') totalSakit++;
-            else if(alasan === 'ALPHA') totalAlpha++;
-        });
+        // Status Kehadiran (Doughnut Chart) - HADIR dihitung dari total siswa dikurangi tidak hadir
+        const chartData = getAttendanceChartData();
         
         if(attendanceChart) attendanceChart.destroy();
         const ctx2 = document.getElementById('attendanceChart')?.getContext('2d');
@@ -936,7 +985,7 @@
                 data: { 
                     labels: ['Hadir', 'Izin', 'Sakit', 'Alpha'], 
                     datasets: [{ 
-                        data: [totalHadir, totalIzin, totalSakit, totalAlpha], 
+                        data: [chartData.hadir, chartData.izin, chartData.sakit, chartData.alpha], 
                         backgroundColor: ['#22c55e', '#eab308', '#3b82f6', '#ef4444'],
                         borderWidth: 0
                     }] 
