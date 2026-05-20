@@ -563,7 +563,7 @@
             </div>
 
             <div class="alpha-card">
-                <div class="alpha-title">📋 AKTIVITAS TERBARU (24 Jam Terakhir)</div>
+                <div class="alpha-title" id="alphaTitle">📋 AKTIVITAS TERBARU</div>
                 <div id="alphaList">
                     <div class="alpha-empty"><i class="fas fa-spinner fa-pulse"></i> Memuat data...</div>
                 </div>
@@ -596,10 +596,13 @@
                 </div>
                 <div class="table-container">
                     <table id="studentTable">
-                        <thead><tr><th>Kode</th><th>Nama Lengkap</th><th>Kelas</th></tr></thead>
-                        <tbody><tr><td colspan="3" style="text-align:center;"><span class="loading-spinner"></span></td></tr>
-                    </tbody>
-                </table>
+                        <thead>
+                            <tr><th>Kode</th><th>Nama Lengkap</th><th>Kelas</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td colspan="3" style="text-align:center;"><span class="loading-spinner"></span></td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -798,23 +801,26 @@
         return totalAll > 0 ? Math.round((totalHadir / totalAll) * 100) : 85;
     }
     
-    function getLastDayAlphaMaterials() {
-        const yesterday = new Date();
-        yesterday.setDate(yesterday.getDate() - 1);
-        const yesterdayStr = yesterday.toISOString().split('T')[0];
-        const today = new Date();
-        const todayStr = today.toISOString().split('T')[0];
-        
-        const last24hData = attendanceData.filter(row => {
-            const tgl = row.Tanggal || row['Tanggal'] || '';
-            return tgl === yesterdayStr || tgl === todayStr;
-        });
+    // Ambil tanggal terakhir dari data absensi
+    function getLastAttendanceDate() {
+        if (attendanceData.length === 0) return null;
+        const dates = attendanceData.map(row => row.Tanggal || row['Tanggal'] || '').filter(d => d);
+        if (dates.length === 0) return null;
+        dates.sort((a, b) => b.localeCompare(a));
+        return dates[0];
+    }
+    
+    // Ambil materi dengan alpha terbanyak pada tanggal tertentu
+    function getAlphaMaterialsByDate(targetDate) {
+        if (!targetDate) return [];
         
         const alphaCount = {};
-        last24hData.forEach(row => {
+        attendanceData.forEach(row => {
+            const tgl = row.Tanggal || row['Tanggal'] || '';
             const alasan = (row.Alasan || '').toUpperCase();
             const materi = row.Materi || row['Materi'] || '';
-            if (alasan === 'ALPHA' && materi) {
+            
+            if (tgl === targetDate && alasan === 'ALPHA' && materi) {
                 alphaCount[materi] = (alphaCount[materi] || 0) + 1;
             }
         });
@@ -825,12 +831,25 @@
     
     function renderLastDayAlpha() {
         const alphaListDiv = document.getElementById('alphaList');
+        const alphaTitle = document.getElementById('alphaTitle');
         if (!alphaListDiv) return;
         
-        const topAlpha = getLastDayAlphaMaterials();
+        const lastDate = getLastAttendanceDate();
+        
+        if (!lastDate) {
+            alphaListDiv.innerHTML = '<div class="alpha-empty"><i class="fas fa-info-circle"></i> Belum ada data absensi</div>';
+            if (alphaTitle) alphaTitle.innerHTML = '📋 AKTIVITAS TERBARU';
+            return;
+        }
+        
+        // Format tanggal ke format Indonesia
+        const formattedDate = lastDate.split('-').reverse().join('/');
+        if (alphaTitle) alphaTitle.innerHTML = `📋 AKTIVITAS TERBARU (${formattedDate})`;
+        
+        const topAlpha = getAlphaMaterialsByDate(lastDate);
         
         if (topAlpha.length === 0) {
-            alphaListDiv.innerHTML = '<div class="alpha-empty"><i class="fas fa-check-circle"></i> Tidak ada Alpha dalam 24 jam terakhir</div>';
+            alphaListDiv.innerHTML = '<div class="alpha-empty"><i class="fas fa-check-circle"></i> Tidak ada Alpha pada tanggal ini</div>';
             return;
         }
         
