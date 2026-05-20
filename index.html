@@ -22,6 +22,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        /* ========= SIDEBAR ========= */
         .sidebar {
             width: 260px;
             background: linear-gradient(180deg, #0a2a1f 0%, #051a12 100%);
@@ -88,6 +89,7 @@
             box-shadow: 0 4px 12px rgba(44, 122, 77, 0.3);
         }
 
+        /* ========= MAIN CONTENT ========= */
         .main-content {
             flex: 1;
             display: flex;
@@ -113,6 +115,7 @@
             color: #0a2a1f;
         }
 
+        /* Profile Section */
         .profile-section {
             display: flex;
             align-items: center;
@@ -153,6 +156,7 @@
             overflow-y: auto;
         }
 
+        /* ========= DASHBOARD GRID (Mobile Friendly) ========= */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -166,6 +170,7 @@
             border-radius: 16px;
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
             border: 1px solid #e9eef3;
+            transition: all 0.2s;
             text-align: center;
         }
 
@@ -199,6 +204,7 @@
             margin-top: 4px;
         }
 
+        /* Charts Row */
         .chart-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -224,19 +230,19 @@
         }
 
         canvas {
-            max-height: 150px;
+            max-height: 140px;
             width: 100% !important;
         }
 
-        .alpha-card {
+        /* Recent Activity */
+        .recent-card {
             background: white;
             border-radius: 16px;
             padding: 14px;
             border: 1px solid #e9eef3;
-            margin-bottom: 20px;
         }
 
-        .alpha-title {
+        .recent-title {
             font-size: 0.7rem;
             font-weight: 600;
             color: #64748b;
@@ -245,42 +251,52 @@
             margin-bottom: 12px;
         }
 
-        .alpha-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .alpha-item {
+        .activity-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 0;
+            padding: 10px 0;
             border-bottom: 1px solid #f0f2f5;
+            gap: 8px;
         }
 
-        .alpha-materi {
-            font-weight: 500;
+        .activity-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .activity-icon {
+            width: 30px;
+            height: 30px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .activity-icon i {
             font-size: 0.8rem;
-            color: #1e293b;
+            color: #2c7a4d;
         }
 
-        .alpha-badge {
-            background: #fee2e2;
-            color: #b91c1c;
-            padding: 4px 12px;
-            border-radius: 30px;
-            font-weight: 700;
+        .activity-text {
+            font-weight: 500;
             font-size: 0.75rem;
+            line-height: 1.3;
         }
 
-        .alpha-empty {
-            text-align: center;
-            padding: 20px;
+        .activity-date {
+            font-size: 0.65rem;
             color: #94a3b8;
-            font-size: 0.75rem;
+            text-align: right;
+            flex-shrink: 0;
         }
 
+        /* Footer Dashboard */
         .dashboard-footer {
             margin-top: 16px;
             padding-top: 12px;
@@ -290,6 +306,7 @@
             text-align: center;
         }
 
+        /* ========= CARD UNTUK MENU LAIN ========= */
         .card {
             background: white;
             border-radius: 20px;
@@ -314,6 +331,11 @@
             display: flex;
             align-items: center;
             gap: 8px;
+        }
+
+        .card-header h3 i {
+            font-size: 1rem;
+            color: #2c7a4d;
         }
 
         .toolbar {
@@ -374,6 +396,11 @@
             gap: 6px;
             background: #f1f5f9;
             color: #1e293b;
+        }
+
+        .btn-primary {
+            background: #2c7a4d;
+            color: white;
         }
 
         .btn-outline {
@@ -467,6 +494,7 @@
             color: #0a2a1f;
         }
 
+        /* ========= RESPONSIVE ========= */
         @media (max-width: 768px) {
             .sidebar {
                 position: fixed;
@@ -479,6 +507,9 @@
             .menu-toggle { display: block; }
             .stats-grid { gap: 10px; }
             .chart-row { gap: 10px; }
+            .profile-name { font-size: 0.75rem; }
+            .profile-role { font-size: 0.6rem; }
+            .profile-avatar { width: 34px; height: 34px; font-size: 0.8rem; }
         }
 
         @media (max-width: 480px) {
@@ -487,6 +518,12 @@
             .content-area { padding: 12px; }
             .stat-card { padding: 12px 8px; }
             .stat-value { font-size: 1.3rem; }
+            .stat-icon { width: 34px; height: 34px; }
+            .stat-icon i { font-size: 1rem; }
+        }
+
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -540,13 +577,13 @@
                     <div class="stat-label">Kelas Aktif</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-chart-simple"></i></div>
-                    <div class="stat-value" id="avgAttendancePerClass">0%</div>
-                    <div class="stat-label">Rata-rata Absensi<br>per Kelas</div>
+                    <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+                    <div class="stat-value" id="avgAttendance">0%</div>
+                    <div class="stat-label">Kehadiran</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon"><i class="fas fa-folder-open"></i></div>
-                    <div class="stat-value" id="totalMateri">0</div>
+                    <div class="stat-value" id="totalMateri">4</div>
                     <div class="stat-label">Materi</div>
                 </div>
             </div>
@@ -562,10 +599,12 @@
                 </div>
             </div>
 
-            <div class="alpha-card">
-                <div class="alpha-title">⚠️ MATERI DENGAN ALPHA TERBANYAK</div>
-                <div id="alphaList">
-                    <div class="alpha-empty"><i class="fas fa-spinner fa-pulse"></i> Memuat data...</div>
+            <div class="recent-card">
+                <div class="recent-title">AKTIVITAS TERBARU</div>
+                <div id="recentActivities">
+                    <div class="activity-item">
+                        <div class="activity-left"><div class="activity-icon"><i class="fas fa-spinner fa-pulse"></i></div><div class="activity-text">Memuat data...</div></div>
+                    </div>
                 </div>
             </div>
 
@@ -597,7 +636,7 @@
                 <div class="table-container">
                     <table id="studentTable">
                         <thead><tr><th>Kode</th><th>Nama Lengkap</th><th>Kelas</th></tr></thead>
-                        <tbody><tr><td colspan="3" style="text-align:center;"><span class="loading-spinner"></span></td></tr>
+                        <tbody><tr><td colspan="3" style="text-align:center;"><span class="loading-spinner"></span></td></tr></tbody>
                     </table>
                 </div>
             </div>
@@ -626,7 +665,7 @@
                 <div class="table-container">
                     <table id="attendanceTable">
                         <thead><tr><th>Tanggal</th><th>Kelas</th><th>Siswa</th><th>Status</th><th>Materi</th></tr></thead>
-                        <tbody><tr><td colspan="5" style="text-align:center;"><span class="loading-spinner"></span></td></tr>
+                        <tbody><tr><td colspan="5" style="text-align:center;"><span class="loading-spinner"></span></td></tr></tbody>
                     </table>
                 </div>
             </div>
@@ -661,6 +700,7 @@
         return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(tabName)}`;
     }
 
+    // Sidebar Toggle
     const sidebar = document.getElementById('sidebar');
     const menuToggle = document.getElementById('menuToggle');
     const navItems = document.querySelectorAll('.nav-item');
@@ -673,6 +713,7 @@
         }
     });
 
+    // Parse CSV
     function parseCSV(csvText) {
         const rows = [];
         const lines = csvText.split(/\r?\n/);
@@ -749,7 +790,7 @@
         const filtered = studentData.filter(s => s.class === kelas && (s.name.toLowerCase().includes(search) || s.code.toLowerCase().includes(search)));
         const tbody = document.querySelector('#studentTable tbody');
         if(!tbody) return;
-        if(filtered.length === 0) { tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Tidak ada数据</td></tr>'; return; }
+        if(filtered.length === 0) { tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Tidak ada data</td></tr>'; return; }
         tbody.innerHTML = filtered.map(s => `<tr><td><span class="badge">${escapeHtml(s.code)}</span></td><td><strong>${escapeHtml(s.name)}</strong></td><td>${escapeHtml(s.class)}</td></tr>`).join('');
     }
     
@@ -769,89 +810,17 @@
         const tbody = document.querySelector('#attendanceTable tbody');
         if(!tbody) return;
         if(filtered.length === 0) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Tidak ada data</td></tr>'; return; }
-        tbody.innerHTML = filtered.map(row => `
-            <tr>
-                <td>${escapeHtml(row.Tanggal || row['Tanggal'] || '-')}</td>
-                <td><span class="badge">${escapeHtml(row.Kelas || row['Kelas'] || '-')}</span></td>
-                <td>${escapeHtml(row['Siswa Absen'] || row.Siswa_Absen || '-')}</td>
-                <td>${row.Alasan === 'HADIR' ? '<span class="badge">HADIR</span>' : (row.Alasan ? '<span class="badge-warning">' + escapeHtml(row.Alasan) + '</span>' : '-')}</td>
-                <td>${escapeHtml(row.Materi || '-')}</td>
-            </tr>
-        `).join('');
+        tbody.innerHTML = filtered.map(row => `<tr>
+            <td>${escapeHtml(row.Tanggal || row['Tanggal'] || '-')}</td>
+            <td><span class="badge">${escapeHtml(row.Kelas || row['Kelas'] || '-')}</span></td>
+            <td>${escapeHtml(row['Siswa Absen'] || row.Siswa_Absen || '-')}</td>
+            <td>${row.Alasan === 'HADIR' ? '<span class="badge">HADIR</span>' : (row.Alasan ? '<span class="badge-warning">' + escapeHtml(row.Alasan) + '</span>' : '-')}</td>
+            <td>${escapeHtml(row.Materi || '-')}</td>
+        </tr>`).join('');
     }
     
     let classChart, attendanceChart;
-    
-    // Hitung Rata-rata Absensi per Kelas
-    function getAverageAttendancePerClass() {
-        const kelasMap = {};
-        const kelasHadirMap = {};
-        
-        attendanceData.forEach(row => {
-            const kelas = row.Kelas || row['Kelas'] || '';
-            const alasan = (row.Alasan || '').toUpperCase();
-            if (!kelas) return;
-            
-            if (!kelasMap[kelas]) {
-                kelasMap[kelas] = 0;
-                kelasHadirMap[kelas] = 0;
-            }
-            kelasMap[kelas]++;
-            if (alasan === 'HADIR') {
-                kelasHadirMap[kelas]++;
-            }
-        });
-        
-        let totalPercentage = 0;
-        let classCount = 0;
-        
-        for (const kelas in kelasMap) {
-            const persen = (kelasHadirMap[kelas] / kelasMap[kelas]) * 100;
-            totalPercentage += persen;
-            classCount++;
-        }
-        
-        return classCount > 0 ? Math.round(totalPercentage / classCount) : 0;
-    }
-    
-    function getTopAlphaMaterials() {
-        const alphaCount = {};
-        attendanceData.forEach(row => {
-            const alasan = (row.Alasan || '').toUpperCase();
-            const materi = row.Materi || row['Materi'] || '';
-            if (alasan === 'ALPHA' && materi) {
-                alphaCount[materi] = (alphaCount[materi] || 0) + 1;
-            }
-        });
-        const sorted = Object.entries(alphaCount).sort((a, b) => b[1] - a[1]);
-        return sorted.slice(0, 5);
-    }
-    
-    function renderAlphaMaterials() {
-        const alphaListDiv = document.getElementById('alphaList');
-        if (!alphaListDiv) return;
-        
-        const topAlpha = getTopAlphaMaterials();
-        
-        if (topAlpha.length === 0) {
-            alphaListDiv.innerHTML = '<div class="alpha-empty"><i class="fas fa-check-circle"></i> Belum ada data Alpha</div>';
-            return;
-        }
-        
-        alphaListDiv.innerHTML = `
-            <div class="alpha-list">
-                ${topAlpha.map(([materi, count], idx) => `
-                    <div class="alpha-item">
-                        <span class="alpha-materi">${idx + 1}. ${escapeHtml(materi)}</span>
-                        <span class="alpha-badge">${count} Alpha</span>
-                    </div>
-                `).join('')}
-            </div>
-        `;
-    }
-    
     function updateDashboard() {
-        // Distribusi siswa
         const kelasMap = {};
         studentData.forEach(s => { kelasMap[s.class] = (kelasMap[s.class] || 0) + 1; });
         const kelasLabels = Object.keys(kelasMap).sort();
@@ -859,47 +828,6 @@
         document.getElementById('totalStudents').innerText = studentData.length;
         document.getElementById('totalClasses').innerText = kelasLabels.length;
         
-        // Rata-rata absensi per kelas
-        const avgAttendance = getAverageAttendancePerClass();
-        document.getElementById('avgAttendancePerClass').innerText = `${avgAttendance}%`;
-        
-        // Jumlah materi unik
-        const uniqueMaterials = new Set();
-        attendanceData.forEach(row => {
-            const materi = row.Materi || row['Materi'] || '';
-            if (materi) uniqueMaterials.add(materi);
-        });
-        document.getElementById('totalMateri').innerText = uniqueMaterials.size || 0;
-        
-        // Chart Distribusi Siswa
-        if(classChart) classChart.destroy();
-        const ctx1 = document.getElementById('classChart')?.getContext('2d');
-        if(ctx1) {
-            classChart = new Chart(ctx1, { 
-                type: 'bar', 
-                data: { 
-                    labels: kelasLabels, 
-                    datasets: [{ 
-                        label: 'Jumlah Siswa', 
-                        data: kelasCounts, 
-                        backgroundColor: '#2c7a4d', 
-                        borderRadius: 6,
-                        barPercentage: 0.7
-                    }] 
-                }, 
-                options: { 
-                    responsive: true, 
-                    maintainAspectRatio: true,
-                    scales: {
-                        y: { beginAtZero: true, title: { display: true, text: 'Siswa', font: { size: 9 } }, ticks: { stepSize: 10, font: { size: 9 } } },
-                        x: { title: { display: true, text: 'Kelas', font: { size: 9 } }, ticks: { font: { size: 9 } } }
-                    },
-                    plugins: { legend: { display: false } }
-                } 
-            });
-        }
-        
-        // Status Kehadiran
         let totalHadir = 0, totalIzin = 0, totalSakit = 0, totalAlpha = 0;
         attendanceData.forEach(row => {
             const alasan = (row.Alasan || '').toUpperCase();
@@ -908,31 +836,23 @@
             else if(alasan === 'SAKIT') totalSakit++;
             else if(alasan === 'ALPHA') totalAlpha++;
         });
+        const total = totalHadir + totalIzin + totalSakit + totalAlpha;
+        const avg = total > 0 ? Math.round((totalHadir / total) * 100) : 0;
+        document.getElementById('avgAttendance').innerText = `${avg}%`;
+        
+        if(classChart) classChart.destroy();
+        const ctx1 = document.getElementById('classChart')?.getContext('2d');
+        if(ctx1) classChart = new Chart(ctx1, { type: 'bar', data: { labels: kelasLabels, datasets: [{ label: 'Siswa', data: kelasCounts, backgroundColor: '#2c7a4d', borderRadius: 6 }] }, options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { position: 'top', labels: { font: { size: 10 } } } } } });
         
         if(attendanceChart) attendanceChart.destroy();
         const ctx2 = document.getElementById('attendanceChart')?.getContext('2d');
-        if(ctx2) {
-            attendanceChart = new Chart(ctx2, { 
-                type: 'doughnut', 
-                data: { 
-                    labels: ['Hadir', 'Izin', 'Sakit', 'Alpha'], 
-                    datasets: [{ 
-                        data: [totalHadir, totalIzin, totalSakit, totalAlpha], 
-                        backgroundColor: ['#22c55e', '#eab308', '#3b82f6', '#ef4444'],
-                        borderWidth: 0
-                    }] 
-                }, 
-                options: { 
-                    responsive: true, 
-                    maintainAspectRatio: true,
-                    plugins: { 
-                        legend: { position: 'bottom', labels: { font: { size: 9 }, boxWidth: 10 } }
-                    } 
-                } 
-            });
-        }
+        if(ctx2) attendanceChart = new Chart(ctx2, { type: 'doughnut', data: { labels: ['Hadir', 'Izin', 'Sakit', 'Alpha'], datasets: [{ data: [totalHadir, totalIzin, totalSakit, totalAlpha], backgroundColor: ['#2c7a4d', '#f59e0b', '#ef4444', '#8b5cf6'] }] }, options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { position: 'bottom', labels: { font: { size: 9 } } } } } });
         
-        renderAlphaMaterials();
+        const recentDiv = document.getElementById('recentActivities');
+        if(recentDiv && attendanceData.length > 0) {
+            const recent = [...attendanceData].sort((a,b) => (b.Tanggal || '').localeCompare(a.Tanggal || '')).slice(0, 4);
+            recentDiv.innerHTML = recent.map(row => `<div class="activity-item"><div class="activity-left"><div class="activity-icon"><i class="fas fa-calendar-check"></i></div><div class="activity-text">${escapeHtml(row['Siswa Absen'] || '-')} - ${escapeHtml(row.Alasan || '-')}</div></div><div class="activity-date">${escapeHtml(row.Tanggal || '-')}</div></div>`).join('');
+        } else if(recentDiv) recentDiv.innerHTML = '<div class="activity-item"><div class="activity-left"><div class="activity-icon"><i class="fas fa-info-circle"></i></div><div class="activity-text">Belum ada data</div></div></div>';
     }
     
     function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); }
@@ -946,18 +866,7 @@
     
     const views = { dashboard: document.getElementById('dashboardView'), students: document.getElementById('studentsView'), attendance: document.getElementById('attendanceView'), grades: document.getElementById('gradesView'), morphea: document.getElementById('morpheaView') };
     const titleMap = { dashboard:'Dashboard', students:'Data Siswa', attendance:'Absensi', grades:'Input Nilai', morphea:'Morphea' };
-    navItems.forEach(item => { 
-        item.addEventListener('click', () => { 
-            const view = item.dataset.view; 
-            navItems.forEach(nav => nav.classList.remove('active')); 
-            item.classList.add('active'); 
-            Object.values(views).forEach(v => { if(v) v.classList.remove('active'); }); 
-            if(views[view]) views[view].classList.add('active'); 
-            document.getElementById('pageTitle').innerText = titleMap[view] || 'Dashboard'; 
-            closeSidebar(); 
-            if(view === 'dashboard') updateDashboard(); 
-        }); 
-    });
+    navItems.forEach(item => { item.addEventListener('click', () => { const view = item.dataset.view; navItems.forEach(nav => nav.classList.remove('active')); item.classList.add('active'); Object.values(views).forEach(v => { if(v) v.classList.remove('active'); }); if(views[view]) views[view].classList.add('active'); document.getElementById('pageTitle').innerText = titleMap[view] || 'Dashboard'; closeSidebar(); if(view === 'dashboard') updateDashboard(); }); });
     
     loadStudentData();
     loadAttendanceData();
