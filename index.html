@@ -228,7 +228,7 @@
             width: 100% !important;
         }
 
-        .alpha-card {
+        .activity-card {
             background: white;
             border-radius: 16px;
             padding: 14px;
@@ -236,7 +236,7 @@
             margin-bottom: 20px;
         }
 
-        .alpha-title {
+        .activity-title {
             font-size: 0.7rem;
             font-weight: 600;
             color: #64748b;
@@ -245,36 +245,38 @@
             margin-bottom: 12px;
         }
 
-        .alpha-list {
+        .activity-list {
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
 
-        .alpha-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
+        .activity-item {
+            padding: 10px 0;
             border-bottom: 1px solid #f0f2f5;
         }
 
-        .alpha-materi {
-            font-weight: 500;
-            font-size: 0.8rem;
-            color: #1e293b;
-        }
-
-        .alpha-badge {
-            background: #fee2e2;
-            color: #b91c1c;
-            padding: 4px 12px;
-            border-radius: 30px;
+        .activity-materi {
             font-weight: 700;
-            font-size: 0.75rem;
+            font-size: 0.85rem;
+            color: #1e293b;
+            margin-bottom: 6px;
         }
 
-        .alpha-empty {
+        .activity-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 0.7rem;
+        }
+
+        .stat-hadir { color: #166534; background: #dcfce7; padding: 2px 8px; border-radius: 20px; }
+        .stat-izin { color: #b45309; background: #fef3c7; padding: 2px 8px; border-radius: 20px; }
+        .stat-sakit { color: #1e40af; background: #dbeafe; padding: 2px 8px; border-radius: 20px; }
+        .stat-alpha { color: #991b1b; background: #fee2e2; padding: 2px 8px; border-radius: 20px; }
+        .stat-total { color: #475569; background: #f1f5f9; padding: 2px 8px; border-radius: 20px; }
+
+        .activity-empty {
             text-align: center;
             padding: 20px;
             color: #94a3b8;
@@ -487,6 +489,8 @@
             .content-area { padding: 12px; }
             .stat-card { padding: 12px 8px; }
             .stat-value { font-size: 1.3rem; }
+            .activity-stats { gap: 6px; }
+            .stat-hadir, .stat-izin, .stat-sakit, .stat-alpha, .stat-total { font-size: 0.6rem; padding: 2px 6px; }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -562,10 +566,10 @@
                 </div>
             </div>
 
-            <div class="alpha-card">
-                <div class="alpha-title" id="alphaTitle">📋 AKTIVITAS TERBARU</div>
-                <div id="alphaList">
-                    <div class="alpha-empty"><i class="fas fa-spinner fa-pulse"></i> Memuat data...</div>
+            <div class="activity-card">
+                <div class="activity-title" id="activityTitle">📋 AKTIVITAS TERBARU</div>
+                <div id="activityList">
+                    <div class="activity-empty"><i class="fas fa-spinner fa-pulse"></i> Memuat data...</div>
                 </div>
             </div>
 
@@ -757,8 +761,8 @@
         const filtered = studentData.filter(s => s.class === kelas && (s.name.toLowerCase().includes(search) || s.code.toLowerCase().includes(search)));
         const tbody = document.querySelector('#studentTable tbody');
         if(!tbody) return;
-        if(filtered.length === 0) { tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Tidak ada data</td></tr>'; return; }
-        tbody.innerHTML = filtered.map(s => `<tr><td><span class="badge">${escapeHtml(s.code)}</span></td><td><strong>${escapeHtml(s.name)}</strong></td><td>${escapeHtml(s.class)}</td></tr>`).join('');
+        if(filtered.length === 0) { tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Tidak ada数据</td></tr>'; return; }
+        tbody.innerHTML = filtered.map(s => `<table><td><span class="badge">${escapeHtml(s.code)}</span></td><td><strong>${escapeHtml(s.name)}</strong></td><td>${escapeHtml(s.class)}</td></tr>`).join('');
     }
     
     let attendanceData = [];
@@ -801,7 +805,6 @@
         return totalAll > 0 ? Math.round((totalHadir / totalAll) * 100) : 85;
     }
     
-    // Ambil tanggal terakhir dari data absensi
     function getLastAttendanceDate() {
         if (attendanceData.length === 0) return null;
         const dates = attendanceData.map(row => row.Tanggal || row['Tanggal'] || '').filter(d => d);
@@ -810,55 +813,72 @@
         return dates[0];
     }
     
-    // Ambil materi dengan alpha terbanyak pada tanggal tertentu
-    function getAlphaMaterialsByDate(targetDate) {
-        if (!targetDate) return [];
+    // Ambil semua aktivitas (Hadir, Izin, Sakit, Alpha) pada tanggal terakhir
+    function getLastDayActivities() {
+        const lastDate = getLastAttendanceDate();
+        if (!lastDate) return [];
         
-        const alphaCount = {};
+        const activityCount = {};
         attendanceData.forEach(row => {
             const tgl = row.Tanggal || row['Tanggal'] || '';
             const alasan = (row.Alasan || '').toUpperCase();
             const materi = row.Materi || row['Materi'] || '';
             
-            if (tgl === targetDate && alasan === 'ALPHA' && materi) {
-                alphaCount[materi] = (alphaCount[materi] || 0) + 1;
+            if (tgl === lastDate && materi) {
+                if (!activityCount[materi]) {
+                    activityCount[materi] = { HADIR: 0, IZIN: 0, SAKIT: 0, ALPHA: 0 };
+                }
+                if (alasan === 'HADIR') activityCount[materi].HADIR++;
+                else if (alasan === 'IZIN') activityCount[materi].IZIN++;
+                else if (alasan === 'SAKIT') activityCount[materi].SAKIT++;
+                else if (alasan === 'ALPHA') activityCount[materi].ALPHA++;
             }
         });
         
-        const sorted = Object.entries(alphaCount).sort((a, b) => b[1] - a[1]);
-        return sorted.slice(0, 5);
+        const result = Object.entries(activityCount).map(([materi, counts]) => ({
+            materi,
+            total: counts.HADIR + counts.IZIN + counts.SAKIT + counts.ALPHA,
+            ...counts
+        }));
+        result.sort((a, b) => b.total - a.total);
+        return result.slice(0, 5);
     }
     
-    function renderLastDayAlpha() {
-        const alphaListDiv = document.getElementById('alphaList');
-        const alphaTitle = document.getElementById('alphaTitle');
-        if (!alphaListDiv) return;
+    function renderLastDayActivities() {
+        const activityListDiv = document.getElementById('activityList');
+        const activityTitle = document.getElementById('activityTitle');
+        if (!activityListDiv) return;
         
         const lastDate = getLastAttendanceDate();
         
         if (!lastDate) {
-            alphaListDiv.innerHTML = '<div class="alpha-empty"><i class="fas fa-info-circle"></i> Belum ada data absensi</div>';
-            if (alphaTitle) alphaTitle.innerHTML = '📋 AKTIVITAS TERBARU';
+            activityListDiv.innerHTML = '<div class="activity-empty"><i class="fas fa-info-circle"></i> Belum ada data absensi</div>';
+            if (activityTitle) activityTitle.innerHTML = '📋 AKTIVITAS TERBARU';
             return;
         }
         
-        // Format tanggal ke format Indonesia
         const formattedDate = lastDate.split('-').reverse().join('/');
-        if (alphaTitle) alphaTitle.innerHTML = `📋 AKTIVITAS TERBARU (${formattedDate})`;
+        if (activityTitle) activityTitle.innerHTML = `📋 AKTIVITAS TERBARU (${formattedDate})`;
         
-        const topAlpha = getAlphaMaterialsByDate(lastDate);
+        const activities = getLastDayActivities();
         
-        if (topAlpha.length === 0) {
-            alphaListDiv.innerHTML = '<div class="alpha-empty"><i class="fas fa-check-circle"></i> Tidak ada Alpha pada tanggal ini</div>';
+        if (activities.length === 0) {
+            activityListDiv.innerHTML = '<div class="activity-empty"><i class="fas fa-check-circle"></i> Tidak ada data aktivitas pada tanggal ini</div>';
             return;
         }
         
-        alphaListDiv.innerHTML = `
-            <div class="alpha-list">
-                ${topAlpha.map(([materi, count], idx) => `
-                    <div class="alpha-item">
-                        <span class="alpha-materi">${idx + 1}. ${escapeHtml(materi)}</span>
-                        <span class="alpha-badge">${count} Alpha</span>
+        activityListDiv.innerHTML = `
+            <div class="activity-list">
+                ${activities.map((item, idx) => `
+                    <div class="activity-item">
+                        <div class="activity-materi">${idx + 1}. ${escapeHtml(item.materi)}</div>
+                        <div class="activity-stats">
+                            <span class="stat-total">📊 Total: ${item.total}</span>
+                            <span class="stat-hadir">✅ Hadir: ${item.HADIR}</span>
+                            <span class="stat-izin">📝 Izin: ${item.IZIN}</span>
+                            <span class="stat-sakit">🤒 Sakit: ${item.SAKIT}</span>
+                            <span class="stat-alpha">⚠️ Alpha: ${item.ALPHA}</span>
+                        </div>
                     </div>
                 `).join('')}
             </div>
@@ -874,11 +894,9 @@
         document.getElementById('totalStudents').innerText = studentData.length;
         document.getElementById('totalClasses').innerText = kelasLabels.length;
         
-        // Kehadiran persentase
         const attendancePercent = getOverallAttendance();
         document.getElementById('attendanceRate').innerHTML = `${attendancePercent}%`;
         
-        // Chart Distribusi Siswa
         if(classChart) classChart.destroy();
         const ctx1 = document.getElementById('classChart')?.getContext('2d');
         if(ctx1) {
@@ -906,7 +924,6 @@
             });
         }
         
-        // Status Kehadiran dengan warna lengkap
         let totalHadir = 0, totalIzin = 0, totalSakit = 0, totalAlpha = 0;
         attendanceData.forEach(row => {
             const alasan = (row.Alasan || '').toUpperCase();
@@ -963,7 +980,7 @@
             });
         }
         
-        renderLastDayAlpha();
+        renderLastDayActivities();
     }
     
     function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); }
