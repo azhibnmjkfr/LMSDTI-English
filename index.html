@@ -336,12 +336,25 @@
             flex-wrap: wrap;
         }
 
-        .filter-group select, .filter-group input {
-            padding: 6px 10px;
-            border-radius: 20px;
+        /* Modern filter select */
+        .filter-select {
+            padding: 8px 16px;
+            border-radius: 30px;
             border: 1px solid #cbd5e1;
             background: white;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #1e293b;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s;
+        }
+        .filter-select:hover {
+            border-color: #2c7a4d;
+        }
+        .filter-select:focus {
+            border-color: #2c7a4d;
+            box-shadow: 0 0 0 2px rgba(44, 122, 77, 0.2);
         }
 
         .search-box {
@@ -382,6 +395,25 @@
             background: transparent;
             border: 1px solid #cbd5e1;
         }
+        
+        .btn-icon {
+            padding: 6px 12px;
+            background: #f1f5f9;
+            border-radius: 30px;
+        }
+        
+        .btn-reset {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+        .btn-reset:hover {
+            background: #e2e8f0;
+        }
+
+        .btn-primary {
+            background: #2c7a4d;
+            color: white;
+        }
 
         .table-container {
             overflow-x: auto;
@@ -421,6 +453,74 @@
         .badge-warning {
             background: #fef3c7;
             color: #b45309;
+        }
+        
+        /* Style untuk card nilai siswa */
+        .nilai-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .kelas-card {
+            background: white;
+            border-radius: 20px;
+            padding: 16px;
+            border: 1px solid #e9eef3;
+        }
+        
+        .kelas-header {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0a2a1f;
+            padding-bottom: 12px;
+            margin-bottom: 12px;
+            border-bottom: 2px solid #2c7a4d;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nilai-table {
+            width: 100%;
+            font-size: 0.7rem;
+        }
+        
+        .nilai-table th {
+            background: #f8fafc;
+            padding: 8px 6px;
+            text-align: center;
+        }
+        
+        .nilai-table td {
+            padding: 6px;
+            text-align: center;
+            border-bottom: 1px solid #f0f2f5;
+        }
+        
+        .score-high {
+            background: #dcfce7;
+            color: #166534;
+            font-weight: 600;
+            border-radius: 20px;
+            display: inline-block;
+            padding: 2px 8px;
+        }
+        .score-mid {
+            background: #fef3c7;
+            color: #b45309;
+            font-weight: 600;
+            border-radius: 20px;
+            display: inline-block;
+            padding: 2px 8px;
+        }
+        .score-low {
+            background: #fee2e2;
+            color: #991b1b;
+            font-weight: 600;
+            border-radius: 20px;
+            display: inline-block;
+            padding: 2px 8px;
         }
 
         .error-badge {
@@ -481,6 +581,8 @@
             .menu-toggle { display: block; }
             .stats-grid { gap: 10px; }
             .chart-row { gap: 10px; }
+            .nilai-table { font-size: 0.6rem; }
+            .nilai-table th, .nilai-table td { padding: 4px; }
         }
 
         @media (max-width: 480px) {
@@ -505,7 +607,7 @@
         <div class="nav-item active" data-view="dashboard"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></div>
         <div class="nav-item" data-view="students"><i class="fas fa-users"></i> <span>Data Siswa</span></div>
         <div class="nav-item" data-view="attendance"><i class="fas fa-calendar-check"></i> <span>Absensi</span></div>
-        <div class="nav-item" data-view="grades"><i class="fas fa-chart-line"></i> <span>Input Nilai</span></div>
+        <div class="nav-item" data-view="grades"><i class="fas fa-chart-line"></i> <span>Nilai Siswa</span></div>
         <div class="nav-item" data-view="morphea"><i class="fas fa-images"></i> <span>Morphea</span></div>
     </div>
 </div>
@@ -582,10 +684,15 @@
                 <div class="card-header">
                     <h3><i class="fas fa-users"></i> Data Siswa</h3>
                     <div class="filter-group">
-                        <select id="studentClassFilter">
-                            <option value="8A">8A</option><option value="9A">9A</option>
-                            <option value="9B">9B</option><option value="9C">9C</option><option value="9D">9D</option>
+                        <select id="studentClassFilter" class="filter-select">
+                            <option value="all">📚 Semua Kelas</option>
+                            <option value="8A">8A</option>
+                            <option value="9A">9A</option>
+                            <option value="9B">9B</option>
+                            <option value="9C">9C</option>
+                            <option value="9D">9D</option>
                         </select>
+                        <button class="btn btn-outline" id="resetStudentBtn"><i class="fas fa-undo-alt"></i> Reset</button>
                         <button class="btn btn-outline" id="refreshStudentBtn"><i class="fas fa-sync-alt"></i></button>
                     </div>
                 </div>
@@ -602,7 +709,7 @@
                             <tr><th>Kode</th><th>Nama Lengkap</th><th>Kelas</th></tr>
                         </thead>
                         <tbody>
-                            <tr><td colspan="3" style="text-align:center;"><span class="loading-spinner"></span><\/td></tr>
+                            <tr><td colspan="3" style="text-align:center;"><span class="loading-spinner"></span></td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -613,20 +720,26 @@
         <div id="attendanceView" class="view-section">
             <div class="card">
                 <div class="card-header">
-                    <h3><i class="fas fa-calendar-check"></i> Rekap Absensi</h3>
+                    <h3><i class="fas fa-calendar-check"></i> Rekap Absensi (Tidak Hadir)</h3>
                     <div class="filter-group">
-                        <select id="attendanceClassFilter">
-                            <option value="8A">8A</option><option value="9A">9A</option>
-                            <option value="9B">9B</option><option value="9C">9C</option><option value="9D">9D</option>
+                        <select id="attendanceClassFilter" class="filter-select">
+                            <option value="all">📚 Semua Kelas</option>
+                            <option value="8A">8A</option>
+                            <option value="9A">9A</option>
+                            <option value="9B">9B</option>
+                            <option value="9C">9C</option>
+                            <option value="9D">9D</option>
                         </select>
+                        <button class="btn btn-outline" id="resetAttendanceBtn"><i class="fas fa-undo-alt"></i> Reset</button>
                         <button class="btn btn-outline" id="refreshAttendanceBtn"><i class="fas fa-sync-alt"></i></button>
                     </div>
                 </div>
                 <div id="attendanceError" class="error-badge" style="display:none;"></div>
                 <div class="toolbar">
                     <div class="filter-group">
-                        <input type="date" id="attendanceDateFilter">
-                        <button class="btn btn-outline" id="filterAttendanceBtn">Filter</button>
+                        <input type="date" id="attendanceDateFilter" class="filter-select">
+                        <button class="btn btn-icon" id="filterAttendanceBtn"><i class="fas fa-search"></i></button>
+                        <button class="btn btn-outline" id="clearDateBtn"><i class="fas fa-times"></i> Clear</button>
                     </div>
                 </div>
                 <div class="table-container">
@@ -635,19 +748,20 @@
                             <tr><th>Tanggal</th><th>Kelas</th><th>Siswa</th><th>Status</th><th>Materi</th></tr>
                         </thead>
                         <tbody>
-                            <tr><td colspan="5" style="text-align:center;"><span class="loading-spinner"></span><\/td></tr>
+                            <tr><td colspan="5" style="text-align:center;"><span class="loading-spinner"></span></td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
 
-        <!-- INPUT NILAI -->
+        <!-- NILAI SISWA -->
         <div id="gradesView" class="view-section">
-            <div class="card" style="text-align:center; padding:40px 20px;">
-                <i class="fas fa-chart-line" style="font-size:2.5rem; color:#2c7a4d; margin-bottom:12px;"></i>
-                <h3 style="font-size:1rem;">Input Nilai</h3>
-                <p style="font-size:0.75rem; color:#64748b;">Fitur akan segera hadir</p>
+            <div class="nilai-grid" id="nilaiContainer">
+                <div class="card" style="text-align:center; padding:40px 20px;">
+                    <i class="fas fa-spinner fa-pulse" style="font-size:2rem; color:#2c7a4d;"></i>
+                    <p style="margin-top:12px;">Memuat data nilai...</p>
+                </div>
             </div>
         </div>
 
@@ -666,6 +780,7 @@
     const SHEET_ID = '1LpN2nGH392LHbVEf-PlRTrVpUKI90Fp8shuIzQCAkwU';
     const TAB_SISWA = 'Nama_Siswa';
     const TAB_ABSENSI = 'Absensi';
+    const TAB_NILAI = ['Nilai_8A', 'Nilai_9A', 'Nilai_9B', 'Nilai_9C', 'Nilai_9D'];
     
     function getCsvUrl(tabName) {
         return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(tabName)}`;
@@ -723,7 +838,7 @@
 
     async function fetchSheetData(tabName, errorDivId) {
         const url = getCsvUrl(tabName);
-        const errorDiv = document.getElementById(errorDivId);
+        const errorDiv = errorDivId ? document.getElementById(errorDivId) : null;
         try {
             const response = await fetch(url);
             if(!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -754,13 +869,23 @@
     }
     
     function renderStudentTable() {
-        const kelas = document.getElementById('studentClassFilter')?.value || '8A';
+        let kelas = document.getElementById('studentClassFilter')?.value || 'all';
         const search = document.getElementById('searchStudent')?.value.toLowerCase() || '';
-        const filtered = studentData.filter(s => s.class === kelas && (s.name.toLowerCase().includes(search) || s.code.toLowerCase().includes(search)));
+        let filtered = studentData;
+        if (kelas !== 'all') {
+            filtered = studentData.filter(s => s.class === kelas);
+        }
+        filtered = filtered.filter(s => s.name.toLowerCase().includes(search) || s.code.toLowerCase().includes(search));
         const tbody = document.querySelector('#studentTable tbody');
         if(!tbody) return;
-        if(filtered.length === 0) { tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Tidak ada data<\/td><\/tr>'; return; }
-        tbody.innerHTML = filtered.map(s => `<tr><td><span class="badge">${escapeHtml(s.code)}<\/span><\/td><td><strong>${escapeHtml(s.name)}<\/strong><\/td><td>${escapeHtml(s.class)}<\/td><\/tr>`).join('');
+        if(filtered.length === 0) { tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Tidak ada data</td></tr>'; return; }
+        tbody.innerHTML = filtered.map(s => `<tr><td><span class="badge">${escapeHtml(s.code)}</span></td><td><strong>${escapeHtml(s.name)}</strong></td><td>${escapeHtml(s.class)}</td></tr>`).join('');
+    }
+    
+    function resetStudentFilter() {
+        document.getElementById('studentClassFilter').value = 'all';
+        document.getElementById('searchStudent').value = '';
+        renderStudentTable();
     }
     
     let attendanceData = [];
@@ -772,30 +897,138 @@
     }
     
     function renderAttendanceTable() {
-        const kelas = document.getElementById('attendanceClassFilter')?.value || '8A';
+        let kelas = document.getElementById('attendanceClassFilter')?.value || 'all';
         const dateFilter = document.getElementById('attendanceDateFilter')?.value || '';
-        let filtered = attendanceData.filter(row => (row.Kelas || row['Kelas'] || '') === kelas);
-        if(dateFilter) filtered = filtered.filter(row => (row.Tanggal || row['Tanggal'] || '') === dateFilter);
+        let filtered = attendanceData.filter(row => {
+            const alasan = (row.Alasan || '').toUpperCase();
+            return alasan === 'IZIN' || alasan === 'SAKIT' || alasan === 'ALPHA';
+        });
+        if (kelas !== 'all') {
+            filtered = filtered.filter(row => (row.Kelas || row['Kelas'] || '') === kelas);
+        }
+        if(dateFilter) {
+            filtered = filtered.filter(row => (row.Tanggal || row['Tanggal'] || '') === dateFilter);
+        }
         const tbody = document.querySelector('#attendanceTable tbody');
         if(!tbody) return;
-        if(filtered.length === 0) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Tidak ada data<\/td><\/tr>'; return; }
+        if(filtered.length === 0) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Tidak ada data</td></tr>'; return; }
         tbody.innerHTML = filtered.map(row => `
             <tr>
-                <td>${escapeHtml(row.Tanggal || row['Tanggal'] || '-')}<\/td>
-                <td><span class="badge">${escapeHtml(row.Kelas || row['Kelas'] || '-')}<\/span><\/td>
-                <td>${escapeHtml(row['Siswa Absen'] || row.Siswa_Absen || '-')}<\/td>
-                <td>${row.Alasan === 'HADIR' ? '<span class="badge">HADIR</span>' : (row.Alasan ? '<span class="badge-warning">' + escapeHtml(row.Alasan) + '</span>' : '-')}<\/td>
-                <td>${escapeHtml(row.Materi || '-')}<\/td>
-            <\/tr>
+                <td>${escapeHtml(row.Tanggal || row['Tanggal'] || '-')}</td>
+                <td><span class="badge">${escapeHtml(row.Kelas || row['Kelas'] || '-')}</span></td>
+                <td>${escapeHtml(row['Siswa Absen'] || row.Siswa_Absen || '-')}</td>
+                <td>${row.Alasan === 'HADIR' ? '<span class="badge">HADIR</span>' : (row.Alasan ? '<span class="badge-warning">' + escapeHtml(row.Alasan) + '</span>' : '-')}</td>
+                <td>${escapeHtml(row.Materi || '-')}</td>
+            </tr>
         `).join('');
+    }
+    
+    function resetAttendanceFilter() {
+        document.getElementById('attendanceClassFilter').value = 'all';
+        document.getElementById('attendanceDateFilter').value = '';
+        renderAttendanceTable();
+    }
+    
+    // Load Nilai Siswa dari semua tab Nilai_XX
+    async function loadNilaiSiswa() {
+        const container = document.getElementById('nilaiContainer');
+        if (!container) return;
+        
+        container.innerHTML = '<div class="card" style="text-align:center; padding:40px 20px;"><i class="fas fa-spinner fa-pulse" style="font-size:2rem;"></i><p style="margin-top:12px;">Memuat data nilai...</p></div>';
+        
+        const kelasList = ['8A', '9A', '9B', '9C', '9D'];
+        let html = '<div class="nilai-grid">';
+        
+        for (let i = 0; i < TAB_NILAI.length; i++) {
+            const tabName = TAB_NILAI[i];
+            const kelas = kelasList[i];
+            const data = await fetchSheetData(tabName, null);
+            
+            if (data.length === 0) {
+                html += `
+                    <div class="kelas-card">
+                        <div class="kelas-header">
+                            <span><i class="fas fa-users"></i> Kelas ${kelas}</span>
+                            <span class="badge-warning" style="padding:4px 12px;">Belum ada data</span>
+                        </div>
+                        <div style="text-align:center; padding:20px; color:#94a3b8;">Data nilai belum tersedia</div>
+                    </div>
+                `;
+                continue;
+            }
+            
+            // Data dari sheet: Student_Name, Class, Task, Quiz, PTS, PAS, Mid_Score, Final_Score
+            const headers = Object.keys(data[0] || {});
+            // Ambil data siswa (baris 2 dan seterusnya)
+            const students = data.filter((row, idx) => idx > 0 || !row.Student_Name);
+            
+            html += `
+                <div class="kelas-card">
+                    <div class="kelas-header">
+                        <span><i class="fas fa-users"></i> Kelas ${kelas}</span>
+                        <span class="badge" style="background:#2c7a4d; color:white;">${students.length} Siswa</span>
+                    </div>
+                    <div class="table-container">
+                        <table class="nilai-table">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Siswa</th>
+                                    <th>Task</th>
+                                    <th>Quiz</th>
+                                    <th>PTS</th>
+                                    <th>PAS</th>
+                                    <th>Mid Score</th>
+                                    <th>Final Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+            `;
+            
+            students.forEach((row, idx) => {
+                const nama = row.Student_Name || row['Student_Name'] || '-';
+                const task = row.Task || row['Task'] || '';
+                const quiz = row.Quiz || row['Quiz'] || '';
+                const pts = row.PTS || row['PTS'] || '';
+                const pas = row.PAS || row['PAS'] || '';
+                const midScore = row.Mid_Score || row['Mid_Score'] || '';
+                const finalScore = row.Final_Score || row['Final_Score'] || '';
+                
+                let scoreClass = '';
+                let finalScoreNum = parseInt(finalScore);
+                if (finalScoreNum >= 80) scoreClass = 'score-high';
+                else if (finalScoreNum >= 70) scoreClass = 'score-mid';
+                else if (finalScoreNum > 0) scoreClass = 'score-low';
+                
+                html += `
+                    <tr>
+                        <td>${idx + 1}</td>
+                        <td style="text-align:left; font-weight:500;">${escapeHtml(nama)}</td>
+                        <td>${task || '-'}</td>
+                        <td>${quiz || '-'}</td>
+                        <td>${pts || '-'}</td>
+                        <td>${pas || '-'}</td>
+                        <td>${midScore || '-'}</td>
+                        <td>${finalScore ? `<span class="${scoreClass}">${finalScore}</span>` : '-'}</td>
+                    </tr>
+                `;
+            });
+            
+            html += `
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        }
+        
+        html += '</div>';
+        container.innerHTML = html;
     }
     
     let classChart, attendanceChart;
     
-    // Hitung persentase kehadiran dari data real
-    // HADIR = Total Siswa - (IZIN + SAKIT + ALPHA)
     function getOverallAttendance() {
-        // Hitung total siswa per kelas dulu
         const totalSiswaPerKelas = {};
         studentData.forEach(s => {
             const kelas = s.class;
@@ -804,7 +1037,6 @@
             }
         });
         
-        // Hitung total tidak hadir (Izin, Sakit, Alpha)
         let totalTidakHadir = 0;
         let totalSiswaSemua = 0;
         
@@ -815,22 +1047,17 @@
             }
         });
         
-        // Total siswa semua kelas
         for (const kelas in totalSiswaPerKelas) {
             totalSiswaSemua += totalSiswaPerKelas[kelas];
         }
         
-        // Jika tidak ada data absensi, fallback ke 0
         if (totalSiswaSemua === 0) return 0;
-        
         const totalHadir = totalSiswaSemua - totalTidakHadir;
         const percent = Math.round((totalHadir / totalSiswaSemua) * 100);
         return percent > 0 ? percent : 0;
     }
     
-    // Hitung data untuk diagram lingkaran (Hadir, Izin, Sakit, Alpha)
     function getAttendanceChartData() {
-        // Hitung total siswa per kelas
         const totalSiswaPerKelas = {};
         studentData.forEach(s => {
             const kelas = s.class;
@@ -863,7 +1090,6 @@
         };
     }
     
-    // Ambil tanggal terakhir dari data absensi
     function getLastAttendanceDate() {
         if (attendanceData.length === 0) return null;
         const dates = attendanceData.map(row => row.Tanggal || row['Tanggal'] || '').filter(d => d && d.trim() !== '');
@@ -872,7 +1098,6 @@
         return dates[0];
     }
     
-    // Ambil daftar siswa yang tidak hadir (Izin, Sakit, Alpha) pada tanggal terakhir
     function getAbsentStudentsByDate(targetDate) {
         if (!targetDate) return [];
         
@@ -934,7 +1159,6 @@
     }
     
     function updateDashboard() {
-        // Distribusi siswa
         const kelasMap = {};
         studentData.forEach(s => { kelasMap[s.class] = (kelasMap[s.class] || 0) + 1; });
         const kelasLabels = Object.keys(kelasMap).sort();
@@ -942,11 +1166,9 @@
         document.getElementById('totalStudents').innerText = studentData.length;
         document.getElementById('totalClasses').innerText = kelasLabels.length;
         
-        // Kehadiran persentase dari data real
         const attendancePercent = getOverallAttendance();
         document.getElementById('attendanceRate').innerHTML = `${attendancePercent}%`;
         
-        // Chart Distribusi Siswa (Bar Chart)
         if(classChart) classChart.destroy();
         const ctx1 = document.getElementById('classChart')?.getContext('2d');
         if(ctx1) {
@@ -974,7 +1196,6 @@
             });
         }
         
-        // Status Kehadiran (Doughnut Chart) - HADIR dihitung dari total siswa dikurangi tidak hadir
         const chartData = getAttendanceChartData();
         
         if(attendanceChart) attendanceChart.destroy();
@@ -1025,12 +1246,19 @@
     document.getElementById('studentClassFilter')?.addEventListener('change', renderStudentTable);
     document.getElementById('searchStudent')?.addEventListener('keyup', renderStudentTable);
     document.getElementById('refreshStudentBtn')?.addEventListener('click', loadStudentData);
+    document.getElementById('resetStudentBtn')?.addEventListener('click', resetStudentFilter);
+    
     document.getElementById('attendanceClassFilter')?.addEventListener('change', renderAttendanceTable);
     document.getElementById('refreshAttendanceBtn')?.addEventListener('click', loadAttendanceData);
     document.getElementById('filterAttendanceBtn')?.addEventListener('click', renderAttendanceTable);
+    document.getElementById('resetAttendanceBtn')?.addEventListener('click', resetAttendanceFilter);
+    document.getElementById('clearDateBtn')?.addEventListener('click', () => {
+        document.getElementById('attendanceDateFilter').value = '';
+        renderAttendanceTable();
+    });
     
     const views = { dashboard: document.getElementById('dashboardView'), students: document.getElementById('studentsView'), attendance: document.getElementById('attendanceView'), grades: document.getElementById('gradesView'), morphea: document.getElementById('morpheaView') };
-    const titleMap = { dashboard:'Dashboard', students:'Data Siswa', attendance:'Absensi', grades:'Input Nilai', morphea:'Morphea' };
+    const titleMap = { dashboard:'Dashboard', students:'Data Siswa', attendance:'Absensi', grades:'Nilai Siswa', morphea:'Morphea' };
     navItems.forEach(item => { 
         item.addEventListener('click', () => { 
             const view = item.dataset.view; 
@@ -1040,7 +1268,8 @@
             if(views[view]) views[view].classList.add('active'); 
             document.getElementById('pageTitle').innerText = titleMap[view] || 'Dashboard'; 
             closeSidebar(); 
-            if(view === 'dashboard') updateDashboard(); 
+            if(view === 'dashboard') updateDashboard();
+            if(view === 'grades') loadNilaiSiswa();
         }); 
     });
     
