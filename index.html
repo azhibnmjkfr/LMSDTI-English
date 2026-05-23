@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <!-- Open Graph / Social Share -->
+    <meta property="og:title" content="LMS English - MTsT Daarut Tahfizh">
+    <meta property="og:description" content="Platform pembelajaran bahasa Inggris oleh Ahmad Zaman Huri, S.Pd.">
+    <meta property="og:url" content="https://azhibnmjkfr.github.io/LMSDTI-English/">
+    
     <title>LMS English - Premium</title>
     <!-- Font Display Swap -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -23,7 +29,7 @@
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
         
-        body { background: var(--bg); color: var(--text); height: 100vh; overflow: hidden; position: relative; }
+        body { background: var(--bg); color: var(--text); height: 100vh; overflow: hidden; position: relative; overscroll-behavior-y: contain; }
 
         /* --- LOADING SCREEN --- */
         #app-loader {
@@ -189,7 +195,7 @@
             width: 40px; height: 40px; background: #f1f5f9; border-radius: 12px;
             display: flex; align-items: center; justify-content: center; color: var(--gray); font-weight: 700; font-size: 0.9rem;
         }
-        .st-info { display: flex; flex-direction: column; }
+        .st-info { display: flex; flex-direction: column; flex: 1; min-width: 0; }
         .st-name { font-weight: 700; font-size: 0.95rem; color: var(--text); }
         .st-code { font-size: 0.7rem; color: var(--gray); margin-top: 2px; }
         .st-class { font-size: 0.75rem; font-weight: 700; color: white; background: var(--primary); padding: 6px 12px; border-radius: 20px; box-shadow: 0 2px 6px rgba(6, 78, 59, 0.3); }
@@ -227,6 +233,120 @@
         .score-low { background: #fee2e2; color: #991b1b; padding: 3px 8px; border-radius: 6px; font-weight: 700; font-size: 0.75rem; }
 
         .main-footer { margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border); text-align: center; color: var(--gray); font-size: 0.7rem; padding-bottom: 10px; }
+
+        /* Profil Specific - Style Baru Lebih Minimalis & Lega */
+        .profil-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 32px 28px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            max-width: 520px;
+            margin: 0 auto;
+            transition: all 0.2s ease;
+        }
+        .profil-avatar {
+            width: 96px;
+            height: 96px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 12px 24px -8px rgba(6, 78, 59, 0.25);
+        }
+        .profil-avatar i {
+            font-size: 2.8rem;
+            color: white;
+        }
+        .profil-name {
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-align: center;
+            letter-spacing: -0.3px;
+            margin-bottom: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .profil-title {
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+        .profil-badge {
+            background: #ecfdf5;
+            color: var(--primary);
+            display: block;         
+            width: fit-content; 
+            padding: 4px 14px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .profil-quote {
+            background: #f8fafc;
+            padding: 16px 20px;
+            border-radius: 20px;
+            margin: 20px 0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--gray);
+            font-style: italic;
+            border-left: 4px solid var(--primary-light);
+        }
+        .profil-info-banner {
+            background: #ecfdf5;
+            border-radius: 20px;
+            padding: 14px 18px;
+            margin: 20px 0 28px 0;
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            border: 1px solid #d1fae5;
+        }
+        .profil-info-banner i {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-top: 2px;
+        }
+        .profil-info-banner strong {
+            color: var(--primary);
+            font-weight: 800;
+        }
+        .profil-info-banner p {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 4px;
+            line-height: 1.4;
+        }
+        .profil-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            width: 100%;
+            justify-content: center;
+            padding: 14px;
+            font-size: 1rem;
+            border-radius: 50px;
+            transition: all 0.25s;
+            box-shadow: 0 6px 14px rgba(6, 78, 59, 0.25);
+            margin-bottom: 8px;
+        }
+        .profil-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(6, 78, 59, 0.4);
+        }
+        /* Hapus elemen tidak perlu */
+        .profil-card .divider-none {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -336,10 +456,10 @@
                 <div style="display:flex; gap:8px;"><button class="btn btn-outline" onclick="resetStudentFilter()"><i class="fas fa-undo"></i></button><button class="btn btn-outline" onclick="loadStudentData()"><i class="fas fa-sync"></i></button></div>
             </div>
             <div id="studentError" style="display:none; color:red; font-size:0.75rem; margin-bottom:10px; text-align:center;"></div>
+            
             <div class="student-list" id="studentListContainer"></div>
+            
             <div class="load-more-container" id="loadMoreContainer" style="display:none;"><button class="btn btn-load-more" onclick="loadMoreStudents()">Muat Lebih Banyak <i class="fas fa-chevron-down"></i></button></div>
-            <div id="studentCountInfo" style="text-align:center; font-size:0.7rem; color:var(--gray); margin-top:10px; display:none;">Menampilkan <span id="shownCount">0</span> dari <span id="totalCount">0</span></div>
-            <div class="main-footer">Developed by <strong>Ahmad Zaman Huri</strong></div>
         </div>
 
         <!-- ABSENSI -->
@@ -361,7 +481,7 @@
             <div class="main-footer" style="margin-top:auto">Developed by <strong>Ahmad Zaman Huri</strong></div>
         </div>
 
-        <!-- MORPHEA (LINK UPDATED) -->
+        <!-- MORPHEA - tanpa footer dalam kartu -->
         <div id="morpheaView" class="view-section">
             <div style="background: white; padding: 40px 24px; border-radius: var(--radius); text-align: center; border: 1px solid var(--border); box-shadow: var(--shadow); height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; max-width: 500px; margin: 0 auto;">
                 
@@ -372,62 +492,57 @@
                 <h3 style="margin-bottom: 12px; font-size:1.4rem; color: var(--primary);">Morphea Gallery</h3>
                 <p style="color: var(--gray); margin-bottom: 24px; font-size:0.95rem; line-height: 1.6;">Akses galeri visual dan materi pembelajaran kreatif.</p>
                 
-                <!-- Info Banner -->
                 <div class="info-banner" style="width: 100%; text-align: left;">
                     <i class="fas fa-info-circle"></i>
                     <span>Data ini disimpan di <strong>Google Drive</strong>. Tombol di bawah akan membuka tab baru untuk mengakses file tersebut.</span>
                 </div>
 
-                <!-- LINK CHANGED HERE -->
                 <a href="https://azhibnmjkfr.github.io/morphea/" target="_blank" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 14px; font-size: 1rem;">Buka Morphea <i class="fas fa-external-link-alt"></i></a>
-                
-                <div class="main-footer" style="margin-top: 30px;">Developed by <strong>Ahmad Zaman Huri</strong></div>
             </div>
         </div>
 
-        <!-- PROFIL GURU (FINAL PERFECT: SPACING & REALISTIC ICON) -->
+        <!-- PROFIL GURU - VERSI BARU MINIMALIS & LEGA -->
         <div id="profilView" class="view-section">
-            <!-- Margin-bottom increased to 80px to separate footer clearly -->
-            <div style="background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%); padding: 32px 24px; border-radius: var(--radius); text-align: center; border: 1px solid var(--border); box-shadow: var(--shadow); max-width: 500px; margin: 0 auto; margin-bottom: 80px;">
-                
-                <!-- Avatar dengan efek glow -->
-                <div style="width: 100px; height: 100px; background: linear-gradient(135deg, var(--primary), var(--primary-light)); border-radius: 32px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; box-shadow: 0 10px 25px -5px rgba(6, 78, 59, 0.3);">
-                    <i class="fas fa-chalkboard-user" style="font-size: 2.8rem; color: white;"></i>
+            <div class="profil-card">
+                <!-- Avatar -->
+                <div class="profil-avatar">
+                    <i class="fas fa-chalkboard-user"></i>
                 </div>
 
-                <h3 style="margin-bottom: 8px; font-size:1.6rem; color: var(--primary); font-weight: 800;">Ahmad Zaman Huri, S.Pd.</h3>
-                <p style="color: var(--gray); margin-bottom: 8px; font-size:1rem;"><i class="fas fa-map-pin"></i> English Teacher - MTsT Daarut Tahfizh</p>
-                <p style="color: var(--primary); margin-bottom: 24px; font-size:0.9rem; background: #ecfdf5; display: inline-block; padding: 4px 16px; border-radius: 30px;">
+                <!-- Nama -->
+                <h3 class="profil-name">Ahmad Zaman Huri, S.Pd.</h3>
+                
+                <!-- Title & Badge digabung agar lebih ringkas -->
+                <div class="profil-title">
+                    <i class="fas fa-map-pin"></i> English Teacher - MTsT Daarut Tahfizh
+                </div>
+                <div class="profil-badge">
                     <i class="fas fa-certificate"></i> Certified Educator
-                </p>
-                
-                <!-- Divider dekoratif -->
-                <div style="width: 60px; height: 3px; background: linear-gradient(90deg, var(--primary), var(--primary-light)); margin: 20px auto; border-radius: 3px;"></div>
-                
-                <p style="color: var(--gray); margin-bottom: 24px; font-size:0.95rem; line-height: 1.6;">
+                </div>
+
+                <!-- Quote lebih ringkas dan elegan -->
+                <div class="profil-quote">
                     <i class="fas fa-quote-left" style="margin-right: 8px; color: var(--primary-light);"></i> 
                     Berdedikasi menciptakan pengalaman belajar bahasa Inggris yang interaktif, inspiratif, dan berorientasi pada karakter.
-                </p>
-                
-                <!-- Info Banner dengan sentuhan personal -->
-                <div style="background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 16px; padding: 16px; margin-bottom: 24px; text-align: left;">
-                    <div style="display: flex; gap: 12px; align-items: flex-start;">
-                        <i class="fas fa-graduation-cap" style="color: var(--primary); font-size: 1.2rem;"></i>
-                        <div>
-                            <strong style="color: var(--primary);">Mengenal Lebih Dekat</strong>
-                            <p style="font-size: 0.8rem; color: var(--gray); margin-top: 4px;">Klik tombol di bawah untuk mengunjungi halaman personal, terhubung melalui media sosial, dan melihat portofolio mengajar.</p>
-                        </div>
+                </div>
+
+                <!-- Banner info lebih rapi dan tidak terlalu padat -->
+                <div class="profil-info-banner">
+                    <i class="fas fa-graduation-cap"></i>
+                    <div>
+                        <strong>Mengenal Lebih Dekat</strong>
+                        <p>Kunjungi halaman personal untuk portofolio dan media sosial.</p>
                     </div>
                 </div>
 
-                <!-- Tombol dengan icon Realistis (User Tie) -->
-                <a href="https://azhibnmjkfr.github.io/aboutme/" target="_blank" class="btn" style="background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: white; width: 100%; justify-content: center; padding: 14px; font-size: 1rem; border-radius: 40px; transition: all 0.3s; box-shadow: 0 4px 14px rgba(6,78,59,0.3);">
+                <!-- Tombol -->
+                <a href="https://azhibnmjkfr.github.io/aboutme/" target="_blank" class="btn profil-btn">
                     <i class="fas fa-user-tie"></i> Kenali Guru Asuh
                 </a>
             </div>
         </div>
 
-        <!-- GLOBAL FOOTER -->
+        <!-- GLOBAL FOOTER (HANYA SATU) -->
         <div class="main-footer">
             &copy; 2026 LMS English | Developed by <strong>Ahmad Zaman Huri</strong>
         </div>
@@ -489,31 +604,63 @@
     async function loadStudentData() {
         const data = await fetchSheetData(TAB_SISWA, 'studentError');
         studentData = data.map(r => ({ code: r.Student_Code||'', name: r.Student_Name||'', cls: r.Class||'' })).filter(s=>s.code);
-        currentStudentLimit = 10; filterAndRenderStudents(); updateDashboard();
+        filterAndRenderStudents();
+        updateDashboard();
     }
+
     function filterAndRenderStudents() {
         const clsFilter = document.getElementById('studentClassFilter').value;
         const search = document.getElementById('searchStudent').value.toLowerCase();
+        
         filteredStudentData = studentData.filter(s => (clsFilter==='all'||s.cls===clsFilter) && (s.name.toLowerCase().includes(search)||s.code.toLowerCase().includes(search)));
+        
         renderStudentList();
     }
+
     function renderStudentList() {
+        const clsFilter = document.getElementById('studentClassFilter').value;
         const list = document.getElementById('studentListContainer');
         const toShow = filteredStudentData.slice(0, currentStudentLimit);
-        if(toShow.length === 0) { list.innerHTML = '<div style="text-align:center; padding:40px; color:#94a3b8;">Data tidak ditemukan</div>'; document.getElementById('loadMoreContainer').style.display = 'none'; return; }
-        list.innerHTML = toShow.map(s => `<div class="student-item"><div class="st-left"><div class="st-avatar">${s.name.charAt(0).toUpperCase()}</div><div class="st-info"><span class="st-name">${s.name}</span><span class="st-code">${s.code}</span></div></div><span class="st-class">${s.cls}</span></div>`).join('');
-        const total = filteredStudentData.length;
-        document.getElementById('shownCount').innerText = toShow.length; document.getElementById('totalCount').innerText = total;
         const loadMoreBtn = document.getElementById('loadMoreContainer');
-        if (total > currentStudentLimit) loadMoreBtn.style.display = 'block'; else loadMoreBtn.style.display = 'none';
+        
+        if(toShow.length === 0) { 
+            list.innerHTML = '<div style="text-align:center; padding:40px; color:#94a3b8;">Data tidak ditemukan</div>'; 
+            loadMoreBtn.style.display = 'none'; 
+            return; 
+        }
+
+        list.innerHTML = toShow.map(s => `<div class="student-item"><div class="st-left"><div class="st-avatar">${s.name.charAt(0).toUpperCase()}</div><div class="st-info"><span class="st-name">${s.name}</span><span class="st-code">${s.code}</span></div></div><span class="st-class">${s.cls}</span></div>`).join('');
+
+        const total = filteredStudentData.length;
+
+        if (clsFilter === 'all') {
+            if (total > currentStudentLimit) {
+                loadMoreBtn.style.display = 'block';
+            } else {
+                loadMoreBtn.style.display = 'none';
+            }
+        } else {
+            loadMoreBtn.style.display = 'none';
+        }
     }
-    function loadMoreStudents() { currentStudentLimit += 10; renderStudentList(); }
-    function resetStudentFilter() { document.getElementById('studentClassFilter').value='all'; document.getElementById('searchStudent').value=''; currentStudentLimit = 10; filterAndRenderStudents(); }
+
+    function loadMoreStudents() { 
+        currentStudentLimit += 10; 
+        renderStudentList(); 
+    }
+
+    function resetStudentFilter() { 
+        document.getElementById('studentClassFilter').value='all'; 
+        document.getElementById('searchStudent').value=''; 
+        currentStudentLimit = 10; 
+        filterAndRenderStudents(); 
+    }
 
     async function loadAttendanceData() {
         attendanceData = await fetchSheetData(TAB_ABSENSI, 'attendanceError');
         renderAttendanceTable(); updateDashboard();
     }
+
     function renderAttendanceTable() {
         const cls = document.getElementById('attendanceClassFilter').value, date = document.getElementById('attendanceDateFilter').value;
         const filtered = attendanceData.filter(r => {
@@ -522,7 +669,7 @@
             if(!valid) return false; if(cls!=='all' && (r.Kelas||'') !== cls) return false; if(date && (r.Tanggal||'') !== date) return false; return true;
         });
         const tbody = document.querySelector('#attendanceTable tbody');
-        if(!filtered.length) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Tidak ada data</td></tr>'; return; }
+        if(!filtered.length) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Tidak ada数据</td></tr>'; return; }
         tbody.innerHTML = filtered.map(r => {
             const reason = (r.Alasan||'').trim().toUpperCase();
             let badge = reason==='IZIN'?'badge-izin':reason==='SAKIT'?'badge-sakit':'badge-alpha';
@@ -563,7 +710,8 @@
 
     function updateDashboard() {
         document.getElementById('totalStudents').innerText = studentData.length;
-        const clsMap = {}; studentData.forEach(s => clsMap[s.cls] = (clsMap[s.cls]||0)+1);
+        const clsMap = {};
+        studentData.forEach(s => clsMap[s.cls] = (clsMap[s.cls]||0)+1);
         document.getElementById('totalClasses').innerText = Object.keys(clsMap).length;
         
         let totalS = studentData.length, totalA = 0;
@@ -575,7 +723,7 @@
         
         if(c1) c1.destroy();
         const ctx1 = document.getElementById('classChart').getContext('2d');
-        c1 = new Chart(ctx1, { type: 'bar', data: { labels, datasets: [{ label: 'Siswa', data: counts, backgroundColor: '#064e3b', borderRadius: 6, barThickness: 'flex', maxBarThickness: 30 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color:'#f1f5f9' }, ticks: { font: {size: 10} } }, x: { grid: { display: false }, ticks: { font: {size: 10} } } } } });
+        c1 = new Chart(ctx1, { type: 'bar', data: { labels, datasets: [{ label: 'Siswa', data: counts, backgroundColor: '#064e3b', borderRadius: 6, barThickness: 'flex', maxBarThickness: 30 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color:'#f1f5f9' }, ticks: { font: { size: 10 } } }, x: { grid: { display: false }, ticks: { font: { size: 10 } } } } } });
 
         if(c2) c2.destroy();
         const ctx2 = document.getElementById('attendanceChart').getContext('2d');
@@ -590,7 +738,7 @@
         list.innerHTML = acts.map((a,i) => { const r=(a.Alasan||'').trim().toUpperCase(); const b=r==='IZIN'?'badge-izin':r==='SAKIT'?'badge-sakit':'badge-alpha'; return `<div class="act-item"><span style="font-weight:600;">${i+1}. ${a['Siswa Absen']||a.Siswa_Absen}</span><span class="${b}">${r}</span></div>`; }).join('');
     }
 
-    // Nav Logic (Updated with Profil)
+    // Nav Logic
     const views = { dashboard: document.getElementById('dashboardView'), students: document.getElementById('studentsView'), attendance: document.getElementById('attendanceView'), grades: document.getElementById('gradesView'), morphea: document.getElementById('morpheaView'), profil: document.getElementById('profilView') };
     const titleMap = { dashboard:'Dashboard', students:'Data Siswa', attendance:'Absensi', grades:'Nilai Siswa', morphea:'Morphea', profil:'Profil Guru' };
     document.querySelectorAll('.nav-item').forEach(item => {
@@ -606,8 +754,14 @@
         });
     });
 
-    document.getElementById('studentClassFilter').addEventListener('change', () => { currentStudentLimit = 10; filterAndRenderStudents(); });
-    document.getElementById('searchStudent').addEventListener('keyup', () => { currentStudentLimit = 10; filterAndRenderStudents(); });
+    document.getElementById('studentClassFilter').addEventListener('change', () => { 
+        currentStudentLimit = 10; 
+        filterAndRenderStudents(); 
+    });
+    document.getElementById('searchStudent').addEventListener('keyup', () => { 
+        currentStudentLimit = 10; 
+        filterAndRenderStudents(); 
+    });
     document.getElementById('attendanceClassFilter').addEventListener('change', renderAttendanceTable);
 
     window.addEventListener('load', initApp);
