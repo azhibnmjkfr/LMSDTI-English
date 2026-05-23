@@ -234,7 +234,7 @@
 
         .main-footer { margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border); text-align: center; color: var(--gray); font-size: 0.7rem; padding-bottom: 10px; }
 
-        /* Profil Specific - Style Baru Lebih Minimalis & Lega */
+        /* Profil Specific */
         .profil-card {
             background: var(--white);
             border-radius: 24px;
@@ -343,10 +343,6 @@
             transform: translateY(-2px);
             box-shadow: 0 10px 20px -5px rgba(6, 78, 59, 0.4);
         }
-        /* Hapus elemen tidak perlu */
-        .profil-card .divider-none {
-            display: none;
-        }
     </style>
 </head>
 <body>
@@ -420,7 +416,7 @@
                     </div>
                     <div class="stat-card">
                         <div class="stat-icon"><i class="fas fa-clipboard-check"></i></div>
-                        <div class="stat-info"><h3 id="attendanceRate">0%</h3><p>Kehadiran</p></div>
+                        <div class="stat-info"><h3 id="attendanceRate">0%</h3><p>Kehadiran (Hari Ini)</p></div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
@@ -435,7 +431,7 @@
                         <div class="chart-container"><canvas id="classChart"></canvas></div>
                     </div>
                     <div class="chart-card">
-                        <div class="chart-title"><span><i class="fas fa-chart-pie"></i> Statistik</span></div>
+                        <div class="chart-title"><span><i class="fas fa-chart-pie"></i> Statistik Absensi</span></div>
                         <div class="chart-container"><canvas id="attendanceChart"></canvas></div>
                     </div>
                 </div>
@@ -462,7 +458,7 @@
             <div class="load-more-container" id="loadMoreContainer" style="display:none;"><button class="btn btn-load-more" onclick="loadMoreStudents()">Muat Lebih Banyak <i class="fas fa-chevron-down"></i></button></div>
         </div>
 
-        <!-- ABSENSI - Footer dihapus -->
+        <!-- ABSENSI - PERBAIKAN HTML TABLE -->
         <div id="attendanceView" class="view-section">
             <div class="toolbar">
                 <div style="flex:1; min-width: 120px;"><select id="attendanceClassFilter"><option value="all">Semua Kelas</option><option value="8A">8A</option><option value="9A">9A</option><option value="9B">9B</option><option value="9C">9C</option><option value="9D">9D</option></select></div>
@@ -470,16 +466,32 @@
                 <div style="display:flex; gap:8px;"><button class="btn btn-outline" onclick="renderAttendanceTable()"><i class="fas fa-search"></i></button><button class="btn btn-outline" onclick="resetAttendanceFilter()">Reset</button><button class="btn btn-outline" onclick="loadAttendanceData()"><i class="fas fa-sync"></i></button></div>
             </div>
             <div id="attendanceError" style="display:none; color:red; font-size:0.75rem; margin-bottom:10px; text-align:center;"></div>
-            <div class="table-wrap"><table id="attendanceTable"><thead><tr><th>Tanggal</th><th>Kelas</th><th>Siswa</th><th>Status</th><th>Materi</th></tr></thead><tbody><td><td colspan="5" style="text-align:center;">Loading...</td></tr></tbody></table></div>
+            <!-- Perbaikan Struktur Tabel Di Sini -->
+            <div class="table-wrap">
+                <table id="attendanceTable">
+                    <thead>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Kelas</th>
+                            <th>Siswa</th>
+                            <th>Status</th>
+                            <th>Materi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td colspan="5" style="text-align:center;">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <!-- NILAI - Footer dihapus -->
+        <!-- NILAI -->
         <div id="gradesView" class="view-section">
             <div id="gradesBundleContainer"><div class="grades-grid" id="gradesGridList"></div></div>
             <div id="gradesDetailContainer" style="display:none;"><button class="btn btn-back" onclick="backToGradesBundle()"><i class="fas fa-arrow-left"></i> Kembali</button><div id="gradesDetailContent"></div></div>
         </div>
 
-        <!-- MORPHEA - tanpa footer dalam kartu -->
+        <!-- MORPHEA -->
         <div id="morpheaView" class="view-section">
             <div style="background: white; padding: 40px 24px; border-radius: var(--radius); text-align: center; border: 1px solid var(--border); box-shadow: var(--shadow); height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; max-width: 500px; margin: 0 auto;">
                 
@@ -499,7 +511,7 @@
             </div>
         </div>
 
-        <!-- PROFIL GURU - VERSI BARU MINIMALIS & LEGA -->
+        <!-- PROFIL GURU -->
         <div id="profilView" class="view-section">
             <div class="profil-card">
                 <!-- Avatar -->
@@ -510,7 +522,7 @@
                 <!-- Nama -->
                 <h3 class="profil-name">Ahmad Zaman Huri, S.Pd.</h3>
                 
-                <!-- Title & Badge digabung agar lebih ringkas -->
+                <!-- Title & Badge -->
                 <div class="profil-title">
                     <i class="fas fa-map-pin"></i> English Teacher - MTsT Daarut Tahfizh
                 </div>
@@ -518,13 +530,13 @@
                     <i class="fas fa-certificate"></i> Certified Educator
                 </div>
 
-                <!-- Quote lebih ringkas dan elegan -->
+                <!-- Quote -->
                 <div class="profil-quote">
                     <i class="fas fa-quote-left" style="margin-right: 8px; color: var(--primary-light);"></i> 
                     Berdedikasi menciptakan pengalaman belajar bahasa Inggris yang interaktif, inspiratif, dan berorientasi pada karakter.
                 </div>
 
-                <!-- Banner info lebih rapi dan tidak terlalu padat -->
+                <!-- Banner info -->
                 <div class="profil-info-banner">
                     <i class="fas fa-graduation-cap"></i>
                     <div>
@@ -541,20 +553,25 @@
         </div>
     </div>
 
-    <!-- GLOBAL FOOTER (HANYA SATU) -->
+    <!-- GLOBAL FOOTER -->
     <div class="main-footer">
         &copy; 2026 LMS English | Developed by <strong>Ahmad Zaman Huri</strong>
     </div>
 </div>
 
 <script>
+    // --- KONFIGURASI ---
     const SHEET_ID = '1LpN2nGH392LHbVEf-PlRTrVpUKI90Fp8shuIzQCAkwU';
-    const TAB_SISWA = 'Nama_Siswa'; const TAB_ABSENSI = 'Absensi';
+    const TAB_SISWA = 'Nama_Siswa'; 
+    const TAB_ABSENSI = 'Absensi';
     const TAB_NILAI = ['Nilai_8A', 'Nilai_9A', 'Nilai_9B', 'Nilai_9C', 'Nilai_9D'];
     const KELAS_LIST = ['8A', '9A', '9B', '9C', '9D'];
-    function getCsvUrl(tab) { return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(tab)}`; }
+
+    function getCsvUrl(tab) { 
+        return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(tab)}`; 
+    }
     
-    // UI Logic
+    // --- UI LOGIC ---
     const sidebar = document.getElementById('sidebar'), overlay = document.getElementById('sidebarOverlay'), menuBtn = document.getElementById('menuBtn');
     function toggleSidebar() {
         const isOpen = sidebar.classList.contains('open');
@@ -563,33 +580,65 @@
     }
     menuBtn.addEventListener('click', toggleSidebar); overlay.addEventListener('click', toggleSidebar);
 
-    function parseCSV(csv) {
-        const rows = []; const lines = csv.split(/\r?\n/);
-        if(!lines[0]) return rows;
-        let headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
-        for(let i=1; i<lines.length; i++) {
-            if(!lines[i].trim()) continue;
-            const vals = lines[i].split(',').map(v => v.trim().replace(/^"|"$/g, ''));
-            const row = {}; headers.forEach((h, idx) => row[h] = vals[idx]);
-            if(Object.keys(row).length) rows.push(row);
+    // --- PERBAIKAN: ROBUST CSV PARSER ---
+    function parseCSV(csvText) {
+        const rows = [];
+        // Split baris dulu
+        const lines = csvText.trim().split(/\r?\n/);
+        if (!lines.length) return rows;
+
+        // Ambil header dengan regex yang lebih aman
+        const headers = lines[0].match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g) || [];
+        const cleanHeaders = headers.map(h => h.replace(/^"|"$/g, '').trim());
+
+        for (let i = 1; i < lines.length; i++) {
+            const line = lines[i].trim();
+            if (!line) continue;
+
+            // Regex untuk memisahkan kolom dengan memperhatikan quote
+            const matches = line.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g);
+            if (!matches) continue;
+
+            const row = {};
+            cleanHeaders.forEach((header, index) => {
+                let val = matches[index] || '';
+                // Hapus quote di awal/akhir dan bersihkan spasi
+                val = val.replace(/^"|"$/g, '').trim();
+                row[header] = val;
+            });
+            rows.push(row);
         }
         return rows;
     }
 
     async function fetchSheetData(tab, errId) {
         try {
+            console.log(`Fetching ${tab}...`);
             const res = await fetch(getCsvUrl(tab));
-            if(!res.ok) throw new Error('Network Error');
-            const data = parseCSV(await res.text());
+            if(!res.ok) throw new Error(`HTTP ${res.status}`);
+            const text = await res.text();
+            
+            // Cek jika response bukan CSV valid
+            if (text.includes('<html>') || text.includes('Error')) {
+                throw new Error('Invalid CSV Response (Sheet might be private)');
+            }
+
+            const data = parseCSV(text);
             if(errId) document.getElementById(errId).style.display = 'none';
+            console.log(`Success ${tab}: ${data.length} rows`);
             return data;
         } catch(e) {
-            if(errId) { const el = document.getElementById(errId); el.style.display='block'; el.innerText = 'Gagal memuat data.'; }
+            console.error(`Error fetching ${tab}:`, e);
+            if(errId) { 
+                const el = document.getElementById(errId); 
+                el.style.display='block'; 
+                el.innerText = `Gagal memuat ${tab}. Cek koneksi atau izin Google Sheet.`; 
+            }
             return [];
         }
     }
 
-    // Data Logic
+    // --- DATA LOGIC ---
     let studentData = [], currentStudentLimit = 10, filteredStudentData = [], attendanceData = [], nilaiCache = {}, c1, c2;
 
     async function initApp() {
@@ -601,7 +650,13 @@
 
     async function loadStudentData() {
         const data = await fetchSheetData(TAB_SISWA, 'studentError');
-        studentData = data.map(r => ({ code: r.Student_Code||'', name: r.Student_Name||'', cls: r.Class||'' })).filter(s=>s.code);
+        // Mapping data
+        studentData = data.map(r => ({ 
+            code: r.Student_Code||r['Student Code']||'', 
+            name: r.Student_Name||r['Student Name']||'', 
+            cls: r.Class||'' 
+        })).filter(s=>s.code);
+        
         filterAndRenderStudents();
         updateDashboard();
     }
@@ -610,7 +665,10 @@
         const clsFilter = document.getElementById('studentClassFilter').value;
         const search = document.getElementById('searchStudent').value.toLowerCase();
         
-        filteredStudentData = studentData.filter(s => (clsFilter==='all'||s.cls===clsFilter) && (s.name.toLowerCase().includes(search)||s.code.toLowerCase().includes(search)));
+        filteredStudentData = studentData.filter(s => 
+            (clsFilter==='all'||s.cls===clsFilter) && 
+            (s.name.toLowerCase().includes(search)||s.code.toLowerCase().includes(search))
+        );
         
         renderStudentList();
     }
@@ -627,16 +685,21 @@
             return; 
         }
 
-        list.innerHTML = toShow.map(s => `<div class="student-item"><div class="st-left"><div class="st-avatar">${s.name.charAt(0).toUpperCase()}</div><div class="st-info"><span class="st-name">${s.name}</span><span class="st-code">${s.code}</span></div></div><span class="st-class">${s.cls}</span></div>`).join('');
+        list.innerHTML = toShow.map(s => `
+            <div class="student-item">
+                <div class="st-left">
+                    <div class="st-avatar">${s.name.charAt(0).toUpperCase()}</div>
+                    <div class="st-info">
+                        <span class="st-name">${s.name}</span>
+                        <span class="st-code">${s.code}</span>
+                    </div>
+                </div>
+                <span class="st-class">${s.cls}</span>
+            </div>`
+        ).join('');
 
-        const total = filteredStudentData.length;
-
-        if (clsFilter === 'all') {
-            if (total > currentStudentLimit) {
-                loadMoreBtn.style.display = 'block';
-            } else {
-                loadMoreBtn.style.display = 'none';
-            }
+        if (clsFilter === 'all' && filteredStudentData.length > currentStudentLimit) {
+            loadMoreBtn.style.display = 'block';
         } else {
             loadMoreBtn.style.display = 'none';
         }
@@ -656,18 +719,29 @@
 
     async function loadAttendanceData() {
         attendanceData = await fetchSheetData(TAB_ABSENSI, 'attendanceError');
-        renderAttendanceTable(); updateDashboard();
+        renderAttendanceTable(); 
+        updateDashboard();
     }
 
     function renderAttendanceTable() {
-        const cls = document.getElementById('attendanceClassFilter').value, date = document.getElementById('attendanceDateFilter').value;
+        const cls = document.getElementById('attendanceClassFilter').value;
+        const date = document.getElementById('attendanceDateFilter').value;
+        
         const filtered = attendanceData.filter(r => {
             const reason = (r.Alasan||'').trim().toUpperCase();
             const valid = ['IZIN','SAKIT','ALPHA','ALPA'].includes(reason);
-            if(!valid) return false; if(cls!=='all' && (r.Kelas||'') !== cls) return false; if(date && (r.Tanggal||'') !== date) return false; return true;
+            if(!valid) return false; 
+            if(cls!=='all' && (r.Kelas||'') !== cls) return false; 
+            if(date && (r.Tanggal||'') !== date) return false; 
+            return true;
         });
+        
         const tbody = document.querySelector('#attendanceTable tbody');
-        if(!filtered.length) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Tidak ada data</td></tr>'; return; }
+        if(!filtered.length) { 
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Tidak ada data</td></tr>'; 
+            return; 
+        }
+        
         tbody.innerHTML = filtered.map(r => {
             const reason = (r.Alasan||'').trim().toUpperCase();
             let badge = reason==='IZIN'?'badge-izin':reason==='SAKIT'?'badge-sakit':'badge-alpha';
@@ -680,78 +754,221 @@
             </tr>`;
         }).join('');
     }
-    function resetAttendanceFilter() { document.getElementById('attendanceClassFilter').value='all'; document.getElementById('attendanceDateFilter').value=''; renderAttendanceTable(); }
+
+    function resetAttendanceFilter() { 
+        document.getElementById('attendanceClassFilter').value='all'; 
+        document.getElementById('attendanceDateFilter').value=''; 
+        renderAttendanceTable(); 
+    }
 
     async function loadNilaiData() {
-        for(let i=0; i<TAB_NILAI.length; i++) nilaiCache[KELAS_LIST[i]] = await fetchSheetData(TAB_NILAI[i], null);
+        for(let i=0; i<TAB_NILAI.length; i++) {
+            nilaiCache[KELAS_LIST[i]] = await fetchSheetData(TAB_NILAI[i], null);
+        }
         renderGradesGrid();
     }
+
     function renderGradesGrid() {
         const container = document.getElementById('gradesGridList');
         let html = '';
         KELAS_LIST.forEach(k => {
-            const data = (nilaiCache[k]||[]).slice(1);
-            const count = data.length; let total = 0, n = 0;
-            data.forEach(r => { const s = parseFloat(r.Final_Score||r['Final_Score']); if(!isNaN(s)) { total+=s; n++; } });
+            const data = (nilaiCache[k]||[]); 
+            const rows = data.slice(1); 
+            const count = rows.length; 
+            let total = 0, n = 0;
+            rows.forEach(r => { 
+                const s = parseFloat(r.Final_Score||r['Final_Score']); 
+                if(!isNaN(s)) { total+=s; n++; } 
+            });
             const avg = n ? Math.round(total/n) : 0;
             html += `<div class="grade-card" onclick="showGradeDetail('${k}')"><div class="gc-icon"><i class="fas fa-chalkboard"></i></div><div class="gc-title">${k}</div><div class="gc-sub">${count} Siswa</div><div class="gc-score">Avg: ${avg}</div></div>`;
         });
         container.innerHTML = html;
     }
+
     function showGradeDetail(k) {
         const data = (nilaiCache[k]||[]).slice(1);
         document.getElementById('gradesBundleContainer').style.display='none';
         document.getElementById('gradesDetailContainer').style.display='block';
-        document.getElementById('gradesDetailContent').innerHTML = `<div class="table-wrap"><table><thead><tr><th>No</th><th>Nama</th><th>Task</th><th>Quiz</th><th>PTS</th><th>PAS</th><th>Mid</th><th>Final</th></tr></thead><tbody>${data.map((r,i)=>{ const f=r.Final_Score||r['Final_Score']||0; let c=f>=80?'score-high':f>=70?'score-mid':'score-low'; return `<tr><td>${i+1}</td><td style="font-weight:600">${r.Student_Name||r['Student_Name']}</td><td>${r.Task||'-'}</td><td>${r.Quiz||'-'}</td><td>${r.PTS||'-'}</td><td>${r.PAS||'-'}</td><td>${r.Mid_Score||r['Mid_Score']||'-'}</td><td>${f?`<span class="${c}">${f}</span>`:'-'}</td></tr>`}).join('')}</tbody></table></div>`;
+        document.getElementById('gradesDetailContent').innerHTML = `
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr><th>No</th><th>Nama</th><th>Task</th><th>Quiz</th><th>PTS</th><th>PAS</th><th>Mid</th><th>Final</th></tr>
+                    </thead>
+                    <tbody>
+                        ${data.map((r,i)=>{
+                            const f=r.Final_Score||r['Final_Score']||0; 
+                            let c=f>=80?'score-high':f>=70?'score-mid':'score-low'; 
+                            return `<tr>
+                                <td>${i+1}</td>
+                                <td style="font-weight:600">${r.Student_Name||r['Student Name']}</td>
+                                <td>${r.Task||'-'}</td>
+                                <td>${r.Quiz||'-'}</td>
+                                <td>${r.PTS||'-'}</td>
+                                <td>${r.PAS||'-'}</td>
+                                <td>${r.Mid_Score||r['Mid Score']||'-'}</td>
+                                <td>${f?`<span class="${c}">${f}</span>`:'-'}</td>
+                            </tr>`;
+                        }).join('')}
+                    </tbody>
+                </table>
+            </div>`;
     }
-    function backToGradesBundle() { document.getElementById('gradesBundleContainer').style.display='block'; document.getElementById('gradesDetailContainer').style.display='none'; }
+
+    function backToGradesBundle() { 
+        document.getElementById('gradesBundleContainer').style.display='block'; 
+        document.getElementById('gradesDetailContainer').style.display='none'; 
+    }
 
     function updateDashboard() {
+        // Update Stats
         document.getElementById('totalStudents').innerText = studentData.length;
         const clsMap = {};
         studentData.forEach(s => clsMap[s.cls] = (clsMap[s.cls]||0)+1);
         document.getElementById('totalClasses').innerText = Object.keys(clsMap).length;
         
-        let totalS = studentData.length, totalA = 0;
-        ['IZIN','SAKIT','ALPHA','ALPA'].forEach(status => totalA += attendanceData.filter(r => (r.Alasan||'').trim().toUpperCase()===status).length);
+        // PERBAIKAN LOGIKA: Hitung statistik berdasarkan tanggal terbaru saja
+        const dates = attendanceData.map(r=>r.Tanggal).filter(d=>d).sort().reverse();
+        const latestDate = dates[0] || '';
+        
+        let totalS = studentData.length;
+        let totalA = 0; 
+        let stats = { IZIN: 0, SAKIT: 0, ALPHA: 0, ALPA: 0 };
+
+        // Filter data hanya untuk latest date
+        if (latestDate) {
+            const latestRecords = attendanceData.filter(r => r.Tanggal === latestDate);
+            
+            latestRecords.forEach(r => {
+                const reason = (r.Alasan||'').trim().toUpperCase();
+                if (['IZIN','SAKIT','ALPHA','ALPA'].includes(reason)) {
+                    totalA++;
+                    if (reason === 'IZIN') stats.IZIN++;
+                    if (reason === 'SAKIT') stats.SAKIT++;
+                    if (reason === 'ALPHA' || reason === 'ALPA') stats.ALPHA++;
+                }
+            });
+        }
+
         const rate = totalS ? Math.round(((totalS-totalA)/totalS)*100) : 0;
         document.getElementById('attendanceRate').innerText = rate+'%';
 
-        const labels = Object.keys(clsMap).sort(); const counts = labels.map(k => clsMap[k]);
+        // --- UPDATE CHARTS ---
+        const labels = Object.keys(clsMap).sort(); 
+        const counts = labels.map(k => clsMap[k]);
         
-        if(c1) c1.destroy();
+        // Class Chart
         const ctx1 = document.getElementById('classChart').getContext('2d');
-        c1 = new Chart(ctx1, { type: 'bar', data: { labels, datasets: [{ label: 'Siswa', data: counts, backgroundColor: '#064e3b', borderRadius: 6, barThickness: 'flex', maxBarThickness: 30 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color:'#f1f5f9' }, ticks: { font: { size: 10 } } }, x: { grid: { display: false }, ticks: { font: { size: 10 } } } } } });
+        if(c1) c1.destroy();
+        c1 = new Chart(ctx1, { 
+            type: 'bar', 
+            data: { 
+                labels, 
+                datasets: [{ 
+                    label: 'Siswa', 
+                    data: counts, 
+                    backgroundColor: '#064e3b', 
+                    borderRadius: 6, 
+                    barThickness: 'flex', 
+                    maxBarThickness: 30 
+                }] 
+            }, 
+            options: { 
+                responsive: true, 
+                maintainAspectRatio: false, 
+                plugins: { legend: { display: false } }, 
+                scales: { 
+                    y: { beginAtZero: true, grid: { color:'#f1f5f9' }, ticks: { font: { size: 10 } } }, 
+                    x: { grid: { display: false }, ticks: { font: { size: 10 } } } 
+                } 
+            } 
+        });
 
-        if(c2) c2.destroy();
+        // Attendance Pie Chart (Hari Ini)
         const ctx2 = document.getElementById('attendanceChart').getContext('2d');
-        c2 = new Chart(ctx2, { type: 'doughnut', data: { labels: ['Hadir','Izin','Sakit','Alpha'], datasets: [{ data: [totalS-totalA, attendanceData.filter(r=>(r.Alasan||'').trim().toUpperCase()==='IZIN').length, attendanceData.filter(r=>(r.Alasan||'').trim().toUpperCase()==='SAKIT').length, attendanceData.filter(r=>['ALPHA','ALPA'].includes((r.Alasan||'').trim().toUpperCase())).length], backgroundColor: ['#10b981','#fbbf24','#3b82f6','#ef4444'], borderWidth:0 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '75%', plugins: { legend: { display: false } } } });
+        if(c2) c2.destroy();
+        const presentCount = totalS - totalA;
+        c2 = new Chart(ctx2, { 
+            type: 'doughnut', 
+            data: { 
+                labels: ['Hadir','Izin','Sakit','Alpha'], 
+                datasets: [{ 
+                    data: [presentCount, stats.IZIN, stats.SAKIT, stats.ALPHA], 
+                    backgroundColor: ['#10b981','#fbbf24','#3b82f6','#ef4444'], 
+                    borderWidth:0 
+                }] 
+            }, 
+            options: { 
+                responsive: true, 
+                maintainAspectRatio: false, 
+                cutout: '75%', 
+                plugins: { legend: { display: false } } 
+            } 
+        });
 
-        const dates = attendanceData.map(r=>r.Tanggal).filter(d=>d).sort().reverse(); const last = dates[0];
-        const list = document.getElementById('activityList'); const title = document.getElementById('activityTitle');
-        if(!last) { title.innerHTML = '<i class="fas fa-history"></i> Aktivitas Terbaru'; list.innerHTML = 'Belum ada data.'; return; }
-        title.innerHTML = `<i class="fas fa-calendar-day"></i> ${last.split('-').reverse().join('/')}`;
-        const acts = attendanceData.filter(r => r.Tanggal===last && ['IZIN','SAKIT','ALPHA','ALPA'].includes((r.Alasan||'').trim().toUpperCase()));
-        if(!acts.length) { list.innerHTML = '<div style="text-align:center; padding:10px; color:#10b981; font-weight:600;">Semua siswa hadir ✅</div>'; return; }
-        list.innerHTML = acts.map((a,i) => { const r=(a.Alasan||'').trim().toUpperCase(); const b=r==='IZIN'?'badge-izin':r==='SAKIT'?'badge-sakit':'badge-alpha'; return `<div class="act-item"><span style="font-weight:600;">${i+1}. ${a['Siswa Absen']||a.Siswa_Absen}</span><span class="${b}">${r}</span></div>`; }).join('');
+        // Update Activity List
+        const list = document.getElementById('activityList'); 
+        const title = document.getElementById('activityTitle');
+        
+        if(!latestDate) { 
+            title.innerHTML = '<i class="fas fa-history"></i> Aktivitas Terbaru'; 
+            list.innerHTML = 'Belum ada data.'; 
+            return; 
+        }
+
+        title.innerHTML = `<i class="fas fa-calendar-day"></i> ${latestDate.split('-').reverse().join('/')}`;
+        const acts = attendanceData.filter(r => r.Tanggal===latestDate && ['IZIN','SAKIT','ALPHA','ALPA'].includes((r.Alasan||'').trim().toUpperCase()));
+        
+        if(!acts.length) { 
+            list.innerHTML = '<div style="text-align:center; padding:10px; color:#10b981; font-weight:600;">Semua siswa hadir ✅</div>'; 
+            return; 
+        }
+        
+        list.innerHTML = acts.map((a,i) => { 
+            const r=(a.Alasan||'').trim().toUpperCase(); 
+            const b=r==='IZIN'?'badge-izin':r==='SAKIT'?'badge-sakit':'badge-alpha'; 
+            return `<div class="act-item"><span style="font-weight:600;">${i+1}. ${a['Siswa Absen']||a.Siswa_Absen}</span><span class="${b}">${r}</span></div>`; 
+        }).join('');
     }
 
-    // Nav Logic
-    const views = { dashboard: document.getElementById('dashboardView'), students: document.getElementById('studentsView'), attendance: document.getElementById('attendanceView'), grades: document.getElementById('gradesView'), morphea: document.getElementById('morpheaView'), profil: document.getElementById('profilView') };
-    const titleMap = { dashboard:'Dashboard', students:'Data Siswa', attendance:'Absensi', grades:'Nilai Siswa', morphea:'Morphea', profil:'Profil Guru' };
+    // --- NAV LOGIC ---
+    const views = { 
+        dashboard: document.getElementById('dashboardView'), 
+        students: document.getElementById('studentsView'), 
+        attendance: document.getElementById('attendanceView'), 
+        grades: document.getElementById('gradesView'), 
+        morphea: document.getElementById('morpheaView'), 
+        profil: document.getElementById('profilView') 
+    };
+    const titleMap = { 
+        dashboard:'Dashboard', 
+        students:'Data Siswa', 
+        attendance:'Absensi', 
+        grades:'Nilai Siswa', 
+        morphea:'Morphea', 
+        profil:'Profil Guru' 
+    };
+
     document.querySelectorAll('.nav-item').forEach(item => {
         item.addEventListener('click', () => {
             const v = item.dataset.view;
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active')); item.classList.add('active');
-            Object.values(views).forEach(el => el.classList.remove('active')); views[v].classList.add('active');
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active')); 
+            item.classList.add('active');
+            
+            Object.values(views).forEach(el => el.classList.remove('active')); 
+            views[v].classList.add('active');
+            
             document.getElementById('pageTitle').innerText = titleMap[v];
             document.getElementById('contentArea').scrollTo({ top: 0, behavior: 'smooth' });
+            
             if(sidebar.classList.contains('open')) toggleSidebar();
             if(v==='dashboard') updateDashboard();
             if(v==='grades' && !Object.keys(nilaiCache).length) loadNilaiData();
         });
     });
 
+    // --- EVENT LISTENERS ---
     document.getElementById('studentClassFilter').addEventListener('change', () => { 
         currentStudentLimit = 10; 
         filterAndRenderStudents(); 
@@ -763,7 +980,8 @@
     document.getElementById('attendanceClassFilter').addEventListener('change', renderAttendanceTable);
 
     window.addEventListener('load', initApp);
-    window.showGradeDetail = showGradeDetail; window.backToGradesBundle = backToGradesBundle;
+    window.showGradeDetail = showGradeDetail; 
+    window.backToGradesBundle = backToGradesBundle;
 </script>
 </body>
 </html>
