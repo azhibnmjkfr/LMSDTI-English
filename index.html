@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     
-    <!-- Open Graph / Social Share -->
     <meta property="og:title" content="LMS English - MTsT Daarut Tahfizh">
     <meta property="og:description" content="Platform pembelajaran bahasa Inggris oleh Ahmad Zaman Huri, S.Pd.">
     <meta property="og:url" content="https://azhibnmjkfr.github.io/LMSDTI-English/">
     
     <title>LMS English - Premium</title>
-    <!-- Font Display Swap -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -46,7 +44,7 @@
         @keyframes spin { to { transform: rotate(360deg); } }
         .loader-text { font-size: 0.9rem; color: var(--gray); font-weight: 600; letter-spacing: 0.5px; }
 
-        /* --- SIDEBAR (DRAWER ONLY) --- */
+        /* --- SIDEBAR --- */
         .sidebar {
             width: 280px;
             background: var(--primary);
@@ -60,17 +58,14 @@
             display: flex; flex-direction: column;
         }
         .sidebar.open { transform: translateX(0); }
-
         .sidebar-overlay {
             position: fixed; inset: 0; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(4px);
             z-index: 900; opacity: 0; pointer-events: none;
             transition: opacity 0.3s;
         }
         .sidebar-overlay.active { opacity: 1; pointer-events: auto; }
-
         .brand { padding: 32px 24px; font-size: 1.2rem; font-weight: 800; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; gap: 12px; letter-spacing: -0.5px; }
         .brand span { font-size: 0.65rem; opacity: 0.7; font-weight: 500; display: block; margin-top: 4px; }
-        
         .nav-menu { padding: 24px 16px; flex: 1; overflow-y: auto; }
         .nav-item {
             padding: 14px 18px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 14px;
@@ -80,12 +75,10 @@
         .nav-item.active { background: rgba(255,255,255,0.15); color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-left: 4px solid var(--primary-light); }
         .nav-item.morphea-nav { margin-top: 24px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); }
         .nav-item.profil-nav { margin-top: 8px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); }
-        
         .sidebar-footer { padding: 24px; font-size: 0.7rem; color: rgba(255,255,255,0.4); text-align: center; border-top: 1px solid rgba(255,255,255,0.1); margin-top: auto; }
         
-        /* --- MAIN CONTENT (FULL WIDTH) --- */
+        /* --- MAIN CONTENT --- */
         .main-content { width: 100%; height: 100%; display: flex; flex-direction: column; position: relative; }
-        
         header {
             background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px);
             padding: 0 24px; height: var(--header-h);
@@ -99,7 +92,6 @@
         }
         .menu-btn:hover { background: #e2e8f0; transform: scale(1.05); }
         .page-title { font-size: 1.25rem; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
-        
         .profile { display: flex; align-items: center; gap: 12px; }
         .avatar {
             width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary), var(--primary-light));
@@ -110,19 +102,15 @@
         @media(min-width: 480px) { .profile-info { display: block; } }
         .p-name { font-size: 0.9rem; font-weight: 700; color: var(--text); line-height: 1.1; }
         .p-role { font-size: 0.65rem; color: var(--gray); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-
         .content-area { flex: 1; overflow-y: auto; padding: 20px; scroll-behavior: smooth; position: relative; }
-        
         .view-section { display: none; animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1); height: 100%; }
         .view-section.active { display: flex; flex-direction: column; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- DASHBOARD (ONE SCREEN) --- */
+        /* --- DASHBOARD --- */
         .dashboard-layout { display: flex; flex-direction: column; height: 100%; gap: 16px; }
-        
         .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; flex-shrink: 0; }
         @media(max-width: 1024px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
-        
         .stat-card {
             background: var(--white); padding: 16px; border-radius: var(--radius);
             box-shadow: var(--shadow); display: flex; align-items: center; gap: 16px;
@@ -137,13 +125,11 @@
         .stat-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
         .stat-info h3 { font-size: 1.5rem; font-weight: 800; line-height: 1; color: var(--text); }
         .stat-info p { font-size: 0.7rem; color: var(--gray); font-weight: 600; text-transform: uppercase; margin-top: 4px; letter-spacing: 0.5px; }
-
         .charts-area {
             display: grid; grid-template-columns: 2fr 1fr; gap: 16px;
             flex: 1; min-height: 0;
         }
         @media(max-width: 900px) { .charts-area { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; } }
-
         .chart-card {
             background: var(--white); padding: 16px; border-radius: var(--radius);
             box-shadow: var(--shadow); border: 1px solid var(--border);
@@ -154,7 +140,6 @@
             text-transform: uppercase; letter-spacing: 0.5px; display: flex; justify-content: space-between;
         }
         .chart-container { flex: 1; position: relative; width: 100%; min-height: 0; }
-
         .activity-card {
             background: var(--white); padding: 16px; border-radius: var(--radius);
             box-shadow: var(--shadow); border: 1px solid var(--border);
@@ -167,7 +152,7 @@
         .badge-sakit { background: #dbeafe; color: #1e40af; padding: 3px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; }
         .badge-alpha { background: #fee2e2; color: #991b1b; padding: 3px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; }
 
-        /* --- OTHER COMPONENTS --- */
+        /* --- COMPONENTS --- */
         .toolbar { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
         select, input[type="date"], input[type="text"] {
             padding: 10px 14px; border: 1px solid var(--border); border-radius: 10px;
@@ -175,7 +160,6 @@
             transition: border-color 0.2s;
         }
         select:focus, input:focus { border-color: var(--primary); }
-
         .btn { padding: 10px 18px; border: none; border-radius: 10px; cursor: pointer; font-size: 0.85rem; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: 0.2s; }
         .btn:active { transform: scale(0.96); }
         .btn-outline { background: white; border: 1px solid var(--border); color: var(--text); }
@@ -183,7 +167,7 @@
         .btn-back { margin-bottom: 16px; background: white; border: 1px solid var(--border); color: var(--text); }
 
         /* Student List */
-        .student-list { display: flex; flex-direction: column; gap: 10px; }
+        .student-list { display: flex; flex-direction: column; gap: 10px; max-height: calc(100vh - 280px); overflow-y: auto; }
         .student-item {
             background: var(--white); padding: 14px; border-radius: 14px;
             display: flex; align-items: center; justify-content: space-between;
@@ -199,10 +183,8 @@
         .st-name { font-weight: 700; font-size: 0.95rem; color: var(--text); }
         .st-code { font-size: 0.7rem; color: var(--gray); margin-top: 2px; }
         .st-class { font-size: 0.75rem; font-weight: 700; color: white; background: var(--primary); padding: 6px 12px; border-radius: 20px; box-shadow: 0 2px 6px rgba(6, 78, 59, 0.3); }
-
-        .load-more-container { margin-top: 20px; text-align: center; }
-        .btn-load-more { width: 100%; background: white; border: 2px dashed var(--border); color: var(--gray); padding: 14px; border-radius: 14px; font-weight: 600; justify-content: center; }
-        .btn-load-more:hover { border-color: var(--primary); color: var(--primary); background: #f0fdf4; }
+        .load-more-container { margin-top: 16px; margin-bottom: 20px; text-align: center; }
+        .btn-load-more { width: 100%; background: white; border: 2px dashed var(--border); color: var(--gray); padding: 12px; border-radius: 14px; font-weight: 600; justify-content: center; }
 
         /* Tables & Grades */
         .table-wrap { overflow-x: auto; background: white; border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow); }
@@ -210,7 +192,6 @@
         th { background: #f8fafc; text-align: left; padding: 14px 16px; font-size: 0.75rem; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 0.5px; }
         td { padding: 14px 16px; border-bottom: 1px solid #f1f5f9; color: var(--text); }
         tr:last-child td { border-bottom: none; }
-
         .grades-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
         @media(min-width: 600px) { .grades-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); } }
         .grade-card { background: white; padding: 20px; border-radius: var(--radius); border: 1px solid var(--border); text-align: center; cursor: pointer; transition: 0.3s; box-shadow: var(--shadow); }
@@ -219,22 +200,18 @@
         .gc-title { font-weight: 800; font-size: 1.2rem; color: var(--primary); }
         .gc-sub { font-size: 0.75rem; color: var(--gray); margin: 4px 0 12px; }
         .gc-score { font-size: 0.8rem; font-weight: 700; background: #ecfdf5; color: #065f46; padding: 4px 12px; border-radius: 12px; display: inline-block; }
-
-        /* Morphea Info Banner */
         .info-banner {
             background: #eff6ff; border: 1px solid #bfdbfe;
             color: #1e40af; padding: 12px 16px; border-radius: 12px;
             font-size: 0.8rem; display: flex; align-items: center; gap: 10px;
             margin-bottom: 20px; line-height: 1.4;
         }
-
         .score-high { background: #dcfce7; color: #166534; padding: 3px 8px; border-radius: 6px; font-weight: 700; font-size: 0.75rem; }
         .score-mid { background: #fef3c7; color: #b45309; padding: 3px 8px; border-radius: 6px; font-weight: 700; font-size: 0.75rem; }
         .score-low { background: #fee2e2; color: #991b1b; padding: 3px 8px; border-radius: 6px; font-weight: 700; font-size: 0.75rem; }
-
         .main-footer { margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border); text-align: center; color: var(--gray); font-size: 0.7rem; padding-bottom: 10px; }
 
-        /* Profil Specific - Style Baru Lebih Minimalis & Lega */
+        /* Profil */
         .profil-card {
             background: var(--white);
             border-radius: 24px;
@@ -245,106 +222,166 @@
             margin: 0 auto;
             transition: all 0.2s ease;
         }
-        .profil-avatar {
-            width: 96px;
-            height: 96px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            border-radius: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            box-shadow: 0 12px 24px -8px rgba(6, 78, 59, 0.25);
+        .profil-avatar { width: 96px; height: 96px; background: linear-gradient(135deg, var(--primary), var(--primary-light)); border-radius: 32px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; box-shadow: 0 12px 24px -8px rgba(6, 78, 59, 0.25); }
+        .profil-avatar i { font-size: 2.8rem; color: white; }
+        .profil-name { font-size: 1.7rem; font-weight: 800; color: var(--primary); text-align: center; letter-spacing: -0.3px; margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .profil-title { text-align: center; color: var(--gray); font-size: 0.9rem; margin-bottom: 8px; }
+        .profil-badge { background: #ecfdf5; color: var(--primary); display: block; width: fit-content; padding: 4px 14px; border-radius: 40px; font-size: 0.75rem; font-weight: 700; margin-bottom: 24px; text-align: center; margin-left: auto; margin-right: auto; }
+        .profil-quote { background: #f8fafc; padding: 16px 20px; border-radius: 20px; margin: 20px 0; font-size: 0.9rem; line-height: 1.5; color: var(--gray); font-style: italic; border-left: 4px solid var(--primary-light); }
+        .profil-info-banner { background: #ecfdf5; border-radius: 20px; padding: 14px 18px; margin: 20px 0 28px 0; display: flex; gap: 14px; align-items: flex-start; border: 1px solid #d1fae5; }
+        .profil-info-banner i { color: var(--primary); font-size: 1.2rem; margin-top: 2px; }
+        .profil-info-banner strong { color: var(--primary); font-weight: 800; }
+        .profil-info-banner p { font-size: 0.8rem; color: var(--gray); margin-top: 4px; line-height: 1.4; }
+        .profil-btn { background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: white; width: 100%; justify-content: center; padding: 14px; font-size: 1rem; border-radius: 50px; transition: all 0.25s; box-shadow: 0 6px 14px rgba(6, 78, 59, 0.25); margin-bottom: 8px; }
+        .profil-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px -5px rgba(6, 78, 59, 0.4); }
+
+        /* --- CSS PRINT - SEMUA MUAT 1 HALAMAN --- */
+        @media print {
+            body {
+                background: white;
+                height: auto;
+                overflow: visible;
+                padding: 0;
+                margin: 0;
+            }
+            .sidebar, .sidebar-overlay, header, .menu-btn, .main-footer, 
+            .toolbar .btn, .load-more-container, .btn-back, .nav-menu, 
+            .sidebar-footer, .profile, .btn-outline, .btn-primary, .btn-load-more,
+            .toolbar button:not(.print-only) {
+                display: none !important;
+            }
+            /* Tombol cetak itu sendiri juga disembunyikan saat print */
+            .print-trigger {
+                display: none !important;
+            }
+            .main-content {
+                margin: 0;
+                padding: 0;
+                display: block;
+            }
+            .content-area {
+                padding: 0 !important;
+                overflow: visible !important;
+                height: auto !important;
+            }
+            .view-section {
+                display: block !important;
+                page-break-after: avoid;
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            .view-section.active {
+                display: block !important;
+            }
+            /* Sembunyikan semua view kecuali yang sedang aktif */
+            .view-section:not(.active) {
+                display: none !important;
+            }
+            /* Header cetak */
+            .print-header {
+                display: block !important;
+                text-align: center;
+                margin-bottom: 20px;
+                padding-bottom: 15px;
+                border-bottom: 2px solid var(--primary);
+            }
+            .print-header h2 {
+                color: var(--primary);
+                margin-bottom: 5px;
+            }
+            .print-header p {
+                margin: 3px 0;
+                font-size: 12px;
+                color: #333;
+            }
+            /* Footer Tanda Tangan */
+            .signature-footer {
+                display: block !important;
+                margin-top: 30px;
+                padding-top: 20px;
+                text-align: right;
+                border-top: 1px dashed #ccc;
+            }
+            .signature-line {
+                margin-top: 40px;
+                width: 250px;
+                text-align: center;
+                margin-left: auto;
+            }
+            .signature-line .name {
+                font-weight: bold;
+                margin-top: 5px;
+            }
+            /* Grafik muat dalam 1 halaman */
+            .chart-container canvas {
+                max-height: 250px !important;
+            }
+            .stats-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 10px;
+                margin-bottom: 20px;
+            }
+            .stat-card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                border: 1px solid #ddd;
+            }
+            .charts-area {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+                margin-bottom: 20px;
+            }
+            .chart-card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            .table-wrap {
+                overflow: visible !important;
+                margin-bottom: 20px;
+            }
+            table {
+                font-size: 10px;
+                width: 100%;
+                border-collapse: collapse;
+            }
+            th, td {
+                padding: 6px 8px;
+                border: 1px solid #ccc;
+            }
+            .grades-grid {
+                display: grid;
+                grid-template-columns: repeat(5, 1fr);
+                gap: 10px;
+                margin-bottom: 20px;
+            }
+            .grade-card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                padding: 10px;
+            }
+            .activity-card {
+                display: none !important;
+            }
+            /* Sembunyikan elemen yang tidak perlu di print */
+            .no-print {
+                display: none !important;
+            }
+            body, html {
+                width: 100%;
+                height: auto;
+                overflow: visible;
+            }
+            /* Pastikan semua konten muat 1 halaman */
+            .print-container {
+                max-height: none;
+                overflow: visible;
+            }
         }
-        .profil-avatar i {
-            font-size: 2.8rem;
-            color: white;
-        }
-        .profil-name {
-            font-size: 1.7rem;
-            font-weight: 800;
-            color: var(--primary);
-            text-align: center;
-            letter-spacing: -0.3px;
-            margin-bottom: 6px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .profil-title {
-            text-align: center;
-            color: var(--gray);
-            font-size: 0.9rem;
-            margin-bottom: 8px;
-        }
-        .profil-badge {
-            background: #ecfdf5;
-            color: var(--primary);
-            display: block;         
-            width: fit-content; 
-            padding: 4px 14px;
-            border-radius: 40px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            margin-bottom: 24px;
-            text-align: center;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .profil-quote {
-            background: #f8fafc;
-            padding: 16px 20px;
-            border-radius: 20px;
-            margin: 20px 0;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            color: var(--gray);
-            font-style: italic;
-            border-left: 4px solid var(--primary-light);
-        }
-        .profil-info-banner {
-            background: #ecfdf5;
-            border-radius: 20px;
-            padding: 14px 18px;
-            margin: 20px 0 28px 0;
-            display: flex;
-            gap: 14px;
-            align-items: flex-start;
-            border: 1px solid #d1fae5;
-        }
-        .profil-info-banner i {
-            color: var(--primary);
-            font-size: 1.2rem;
-            margin-top: 2px;
-        }
-        .profil-info-banner strong {
-            color: var(--primary);
-            font-weight: 800;
-        }
-        .profil-info-banner p {
-            font-size: 0.8rem;
-            color: var(--gray);
-            margin-top: 4px;
-            line-height: 1.4;
-        }
-        .profil-btn {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: white;
-            width: 100%;
-            justify-content: center;
-            padding: 14px;
-            font-size: 1rem;
-            border-radius: 50px;
-            transition: all 0.25s;
-            box-shadow: 0 6px 14px rgba(6, 78, 59, 0.25);
-            margin-bottom: 8px;
-        }
-        .profil-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px -5px rgba(6, 78, 59, 0.4);
-        }
-        /* Hapus elemen tidak perlu */
-        .profil-card .divider-none {
+
+        /* Elemen print yang disembunyikan di layar */
+        .print-header, .signature-footer {
             display: none;
         }
     </style>
@@ -365,7 +402,7 @@
 <!-- OVERLAY -->
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-<!-- SIDEBAR (DRAWER) -->
+<!-- SIDEBAR -->
 <div class="sidebar" id="sidebar">
     <div class="brand">
         <i class="fas fa-shapes"></i>
@@ -405,10 +442,16 @@
     </header>
 
     <div class="content-area" id="contentArea">
-        <!-- DASHBOARD (FULL SCREEN) -->
+        <!-- DASHBOARD -->
         <div id="dashboardView" class="view-section active">
+            <!-- Header untuk print -->
+            <div class="print-header">
+                <h2>LAPORAN DASHBOARD PEMBELAJARAN</h2>
+                <p><strong>Ahmad Zaman Huri, S.Pd.</strong> - Guru Mata Pelajaran Bahasa Inggris</p>
+                <p>MTsT Daarut Tahfizh | Tahun Ajaran 2026</p>
+            </div>
+            
             <div class="dashboard-layout">
-                <!-- Stats -->
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-icon"><i class="fas fa-user-graduate"></i></div>
@@ -428,27 +471,34 @@
                     </div>
                 </div>
 
-                <!-- Charts (Flexible) -->
                 <div class="charts-area">
                     <div class="chart-card">
                         <div class="chart-title"><span><i class="fas fa-chart-bar"></i> Distribusi Siswa</span></div>
                         <div class="chart-container"><canvas id="classChart"></canvas></div>
                     </div>
                     <div class="chart-card">
-                        <div class="chart-title"><span><i class="fas fa-chart-pie"></i> Statistik</span></div>
+                        <div class="chart-title"><span><i class="fas fa-chart-pie"></i> Statistik Absensi</span></div>
                         <div class="chart-container"><canvas id="attendanceChart"></canvas></div>
                     </div>
                 </div>
 
-                <!-- Activity -->
                 <div class="activity-card">
                     <div class="chart-title" id="activityTitle"><i class="fas fa-history"></i> Aktivitas Terbaru</div>
                     <div class="activity-list" id="activityList"><div style="text-align:center; padding: 20px; color: #94a3b8;">Memuat...</div></div>
                 </div>
             </div>
+            
+            <!-- Footer Tanda Tangan untuk print -->
+            <div class="signature-footer">
+                <div class="signature-line">
+                    Mengetahui,<br>
+                    Guru Mata Pelajaran Bahasa Inggris<br><br><br><br>
+                    <span class="name">Ahmad Zaman Huri, S.Pd.</span>
+                </div>
+            </div>
         </div>
 
-        <!-- DATA SISWA -->
+        <!-- DATA SISWA (TANPA TOMBOL PRINT) -->
         <div id="studentsView" class="view-section">
             <div class="toolbar">
                 <div style="flex:1; min-width: 120px;"><select id="studentClassFilter"><option value="all">Semua Kelas</option><option value="8A">8A</option><option value="9A">9A</option><option value="9B">9B</option><option value="9C">9C</option><option value="9D">9D</option></select></div>
@@ -456,105 +506,103 @@
                 <div style="display:flex; gap:8px;"><button class="btn btn-outline" onclick="resetStudentFilter()"><i class="fas fa-undo"></i></button><button class="btn btn-outline" onclick="loadStudentData()"><i class="fas fa-sync"></i></button></div>
             </div>
             <div id="studentError" style="display:none; color:red; font-size:0.75rem; margin-bottom:10px; text-align:center;"></div>
-            
             <div class="student-list" id="studentListContainer"></div>
-            
             <div class="load-more-container" id="loadMoreContainer" style="display:none;"><button class="btn btn-load-more" onclick="loadMoreStudents()">Muat Lebih Banyak <i class="fas fa-chevron-down"></i></button></div>
         </div>
 
-        <!-- ABSENSI - Footer dihapus -->
+        <!-- ABSENSI -->
         <div id="attendanceView" class="view-section">
+            <div class="print-header">
+                <h2>LAPORAN ABSENSI SISWA</h2>
+                <p><strong>Ahmad Zaman Huri, S.Pd.</strong> - Guru Mata Pelajaran Bahasa Inggris</p>
+                <p>MTsT Daarut Tahfizh | Tahun Ajaran 2026</p>
+            </div>
             <div class="toolbar">
                 <div style="flex:1; min-width: 120px;"><select id="attendanceClassFilter"><option value="all">Semua Kelas</option><option value="8A">8A</option><option value="9A">9A</option><option value="9B">9B</option><option value="9C">9C</option><option value="9D">9D</option></select></div>
                 <div style="flex:1; min-width: 140px;"><input type="date" id="attendanceDateFilter"></div>
-                <div style="display:flex; gap:8px;"><button class="btn btn-outline" onclick="renderAttendanceTable()"><i class="fas fa-search"></i></button><button class="btn btn-outline" onclick="resetAttendanceFilter()">Reset</button><button class="btn btn-outline" onclick="loadAttendanceData()"><i class="fas fa-sync"></i></button></div>
+                <div style="display:flex; gap:8px;"><button class="btn btn-outline" onclick="renderAttendanceTable()"><i class="fas fa-search"></i></button><button class="btn btn-outline" onclick="resetAttendanceFilter()">Reset</button><button class="btn btn-outline print-trigger" onclick="window.print()"><i class="fas fa-print"></i> Cetak</button><button class="btn btn-outline" onclick="loadAttendanceData()"><i class="fas fa-sync"></i></button></div>
             </div>
             <div id="attendanceError" style="display:none; color:red; font-size:0.75rem; margin-bottom:10px; text-align:center;"></div>
-            <div class="table-wrap"><table id="attendanceTable"><thead><tr><th>Tanggal</th><th>Kelas</th><th>Siswa</th><th>Status</th><th>Materi</th></tr></thead><tbody><td><td colspan="5" style="text-align:center;">Loading...</td></tr></tbody></table></div>
+            <div class="table-wrap"><table id="attendanceTable"><thead><tr><th>Tanggal</th><th>Kelas</th><th>Siswa</th><th>Status</th><th>Materi</th></tr></thead><tbody><tr><td colspan="5" style="text-align:center;">Loading...</td></tr></tbody></table></div>
+            <div class="signature-footer">
+                <div class="signature-line">
+                    Mengetahui,<br>
+                    Guru Mata Pelajaran Bahasa Inggris<br><br><br><br>
+                    <span class="name">Ahmad Zaman Huri, S.Pd.</span>
+                </div>
+            </div>
         </div>
 
-        <!-- NILAI - Footer dihapus -->
+        <!-- NILAI -->
         <div id="gradesView" class="view-section">
+            <div class="print-header">
+                <h2>LAPORAN NILAI SISWA</h2>
+                <p><strong>Ahmad Zaman Huri, S.Pd.</strong> - Guru Mata Pelajaran Bahasa Inggris</p>
+                <p>MTsT Daarut Tahfizh | Tahun Ajaran 2026</p>
+                <p id="printGradeClass" style="font-weight:bold; margin-top:5px;"></p>
+            </div>
+            <div class="toolbar">
+                <button class="btn btn-outline print-trigger" onclick="printCurrentGrade()"><i class="fas fa-print"></i> Cetak Nilai</button>
+            </div>
             <div id="gradesBundleContainer"><div class="grades-grid" id="gradesGridList"></div></div>
             <div id="gradesDetailContainer" style="display:none;"><button class="btn btn-back" onclick="backToGradesBundle()"><i class="fas fa-arrow-left"></i> Kembali</button><div id="gradesDetailContent"></div></div>
+            <div class="signature-footer" id="gradeSignatureFooter" style="display:none;">
+                <div class="signature-line">
+                    Mengetahui,<br>
+                    Guru Mata Pelajaran Bahasa Inggris<br><br><br><br>
+                    <span class="name">Ahmad Zaman Huri, S.Pd.</span>
+                </div>
+            </div>
         </div>
 
-        <!-- MORPHEA - tanpa footer dalam kartu -->
+        <!-- MORPHEA -->
         <div id="morpheaView" class="view-section">
             <div style="background: white; padding: 40px 24px; border-radius: var(--radius); text-align: center; border: 1px solid var(--border); box-shadow: var(--shadow); height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; max-width: 500px; margin: 0 auto;">
-                
                 <div style="width: 60px; height: 60px; background: #eff6ff; color: #3b82f6; border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 1.8rem;">
                     <i class="fas fa-cloud-upload-alt"></i>
                 </div>
-
                 <h3 style="margin-bottom: 12px; font-size:1.4rem; color: var(--primary);">Morphea Gallery</h3>
                 <p style="color: var(--gray); margin-bottom: 24px; font-size:0.95rem; line-height: 1.6;">Akses galeri visual dan materi pembelajaran kreatif.</p>
-                
                 <div class="info-banner" style="width: 100%; text-align: left;">
                     <i class="fas fa-info-circle"></i>
                     <span>Data ini disimpan di <strong>Google Drive</strong>. Tombol di bawah akan membuka tab baru untuk mengakses file tersebut.</span>
                 </div>
-
                 <a href="https://azhibnmjkfr.github.io/morphea/" target="_blank" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 14px; font-size: 1rem;">Buka Morphea <i class="fas fa-external-link-alt"></i></a>
             </div>
         </div>
 
-        <!-- PROFIL GURU - VERSI BARU MINIMALIS & LEGA -->
+        <!-- PROFIL GURU -->
         <div id="profilView" class="view-section">
             <div class="profil-card">
-                <!-- Avatar -->
-                <div class="profil-avatar">
-                    <i class="fas fa-chalkboard-user"></i>
-                </div>
-
-                <!-- Nama -->
+                <div class="profil-avatar"><i class="fas fa-chalkboard-user"></i></div>
                 <h3 class="profil-name">Ahmad Zaman Huri, S.Pd.</h3>
-                
-                <!-- Title & Badge digabung agar lebih ringkas -->
-                <div class="profil-title">
-                    <i class="fas fa-map-pin"></i> English Teacher - MTsT Daarut Tahfizh
-                </div>
-                <div class="profil-badge">
-                    <i class="fas fa-certificate"></i> Certified Educator
-                </div>
-
-                <!-- Quote lebih ringkas dan elegan -->
-                <div class="profil-quote">
-                    <i class="fas fa-quote-left" style="margin-right: 8px; color: var(--primary-light);"></i> 
-                    Berdedikasi menciptakan pengalaman belajar bahasa Inggris yang interaktif, inspiratif, dan berorientasi pada karakter.
-                </div>
-
-                <!-- Banner info lebih rapi dan tidak terlalu padat -->
-                <div class="profil-info-banner">
-                    <i class="fas fa-graduation-cap"></i>
-                    <div>
-                        <strong>Mengenal Lebih Dekat</strong>
-                        <p>Kunjungi halaman personal untuk portofolio dan media sosial.</p>
-                    </div>
-                </div>
-
-                <!-- Tombol -->
-                <a href="https://azhibnmjkfr.github.io/aboutme/" target="_blank" class="btn profil-btn">
-                    <i class="fas fa-user-tie"></i> Kenali Guru Asuh
-                </a>
+                <div class="profil-title"><i class="fas fa-map-pin"></i> English Teacher - MTsT Daarut Tahfizh</div>
+                <div class="profil-badge"><i class="fas fa-certificate"></i> Certified Educator</div>
+                <div class="profil-quote"><i class="fas fa-quote-left" style="margin-right: 8px; color: var(--primary-light);"></i> Berdedikasi menciptakan pengalaman belajar bahasa Inggris yang interaktif, inspiratif, dan berorientasi pada karakter.</div>
+                <div class="profil-info-banner"><i class="fas fa-graduation-cap"></i><div><strong>Mengenal Lebih Dekat</strong><p>Kunjungi halaman personal untuk portofolio dan media sosial.</p></div></div>
+                <a href="https://azhibnmjkfr.github.io/aboutme/" target="_blank" class="btn profil-btn"><i class="fas fa-user-tie"></i> Kenali Guru Asuh</a>
             </div>
         </div>
     </div>
 
-    <!-- GLOBAL FOOTER (HANYA SATU) -->
     <div class="main-footer">
         &copy; 2026 LMS English | Developed by <strong>Ahmad Zaman Huri</strong>
     </div>
 </div>
 
 <script>
+    // --- KONFIGURASI ---
     const SHEET_ID = '1LpN2nGH392LHbVEf-PlRTrVpUKI90Fp8shuIzQCAkwU';
-    const TAB_SISWA = 'Nama_Siswa'; const TAB_ABSENSI = 'Absensi';
+    const TAB_SISWA = 'Nama_Siswa'; 
+    const TAB_ABSENSI = 'Absensi';
     const TAB_NILAI = ['Nilai_8A', 'Nilai_9A', 'Nilai_9B', 'Nilai_9C', 'Nilai_9D'];
     const KELAS_LIST = ['8A', '9A', '9B', '9C', '9D'];
-    function getCsvUrl(tab) { return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(tab)}`; }
+
+    function getCsvUrl(tab) { 
+        return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(tab)}`; 
+    }
     
-    // UI Logic
+    // --- UI LOGIC ---
     const sidebar = document.getElementById('sidebar'), overlay = document.getElementById('sidebarOverlay'), menuBtn = document.getElementById('menuBtn');
     function toggleSidebar() {
         const isOpen = sidebar.classList.contains('open');
@@ -563,34 +611,54 @@
     }
     menuBtn.addEventListener('click', toggleSidebar); overlay.addEventListener('click', toggleSidebar);
 
-    function parseCSV(csv) {
-        const rows = []; const lines = csv.split(/\r?\n/);
-        if(!lines[0]) return rows;
-        let headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
-        for(let i=1; i<lines.length; i++) {
-            if(!lines[i].trim()) continue;
-            const vals = lines[i].split(',').map(v => v.trim().replace(/^"|"$/g, ''));
-            const row = {}; headers.forEach((h, idx) => row[h] = vals[idx]);
-            if(Object.keys(row).length) rows.push(row);
+    function parseCSV(csvText) {
+        const rows = [];
+        const lines = csvText.trim().split(/\r?\n/);
+        if (!lines.length) return rows;
+        const headers = lines[0].match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g) || [];
+        const cleanHeaders = headers.map(h => h.replace(/^"|"$/g, '').trim());
+        for (let i = 1; i < lines.length; i++) {
+            const line = lines[i].trim();
+            if (!line) continue;
+            const matches = line.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g);
+            if (!matches) continue;
+            const row = {};
+            cleanHeaders.forEach((header, index) => {
+                let val = matches[index] || '';
+                val = val.replace(/^"|"$/g, '').trim();
+                row[header] = val;
+            });
+            rows.push(row);
         }
         return rows;
     }
 
     async function fetchSheetData(tab, errId) {
         try {
+            console.log(`Fetching ${tab}...`);
             const res = await fetch(getCsvUrl(tab));
-            if(!res.ok) throw new Error('Network Error');
-            const data = parseCSV(await res.text());
+            if(!res.ok) throw new Error(`HTTP ${res.status}`);
+            const text = await res.text();
+            if (text.includes('<html>') || text.includes('Error')) {
+                throw new Error('Invalid CSV Response');
+            }
+            const data = parseCSV(text);
             if(errId) document.getElementById(errId).style.display = 'none';
             return data;
         } catch(e) {
-            if(errId) { const el = document.getElementById(errId); el.style.display='block'; el.innerText = 'Gagal memuat data.'; }
+            console.error(`Error fetching ${tab}:`, e);
+            if(errId) { 
+                const el = document.getElementById(errId); 
+                el.style.display='block'; 
+                el.innerText = `Gagal memuat ${tab}. Cek koneksi atau izin Google Sheet.`; 
+            }
             return [];
         }
     }
 
-    // Data Logic
-    let studentData = [], currentStudentLimit = 10, filteredStudentData = [], attendanceData = [], nilaiCache = {}, c1, c2;
+    // --- DATA LOGIC ---
+    let studentData = [], currentStudentLimit = 5, filteredStudentData = [], attendanceData = [], nilaiCache = {}, c1, c2;
+    let currentGradeClass = ''; // Untuk menyimpan kelas yang sedang dilihat detail nilainya
 
     async function initApp() {
         await Promise.all([loadStudentData(), loadAttendanceData()]);
@@ -601,7 +669,11 @@
 
     async function loadStudentData() {
         const data = await fetchSheetData(TAB_SISWA, 'studentError');
-        studentData = data.map(r => ({ code: r.Student_Code||'', name: r.Student_Name||'', cls: r.Class||'' })).filter(s=>s.code);
+        studentData = data.map(r => ({ 
+            code: r.Student_Code||r['Student Code']||'', 
+            name: r.Student_Name||r['Student Name']||'', 
+            cls: r.Class||'' 
+        })).filter(s=>s.code);
         filterAndRenderStudents();
         updateDashboard();
     }
@@ -609,9 +681,10 @@
     function filterAndRenderStudents() {
         const clsFilter = document.getElementById('studentClassFilter').value;
         const search = document.getElementById('searchStudent').value.toLowerCase();
-        
-        filteredStudentData = studentData.filter(s => (clsFilter==='all'||s.cls===clsFilter) && (s.name.toLowerCase().includes(search)||s.code.toLowerCase().includes(search)));
-        
+        filteredStudentData = studentData.filter(s => 
+            (clsFilter==='all'||s.cls===clsFilter) && 
+            (s.name.toLowerCase().includes(search)||s.code.toLowerCase().includes(search))
+        );
         renderStudentList();
     }
 
@@ -627,47 +700,63 @@
             return; 
         }
 
-        list.innerHTML = toShow.map(s => `<div class="student-item"><div class="st-left"><div class="st-avatar">${s.name.charAt(0).toUpperCase()}</div><div class="st-info"><span class="st-name">${s.name}</span><span class="st-code">${s.code}</span></div></div><span class="st-class">${s.cls}</span></div>`).join('');
+        list.innerHTML = toShow.map(s => `
+            <div class="student-item">
+                <div class="st-left">
+                    <div class="st-avatar">${s.name.charAt(0).toUpperCase()}</div>
+                    <div class="st-info">
+                        <span class="st-name">${s.name}</span>
+                        <span class="st-code">${s.code}</span>
+                    </div>
+                </div>
+                <span class="st-class">${s.cls}</span>
+            </div>`
+        ).join('');
 
-        const total = filteredStudentData.length;
-
-        if (clsFilter === 'all') {
-            if (total > currentStudentLimit) {
-                loadMoreBtn.style.display = 'block';
-            } else {
-                loadMoreBtn.style.display = 'none';
-            }
+        if (clsFilter === 'all' && filteredStudentData.length > currentStudentLimit) {
+            loadMoreBtn.style.display = 'block';
         } else {
             loadMoreBtn.style.display = 'none';
         }
     }
 
     function loadMoreStudents() { 
-        currentStudentLimit += 10; 
+        currentStudentLimit += 5; 
         renderStudentList(); 
     }
 
     function resetStudentFilter() { 
         document.getElementById('studentClassFilter').value='all'; 
         document.getElementById('searchStudent').value=''; 
-        currentStudentLimit = 10; 
+        currentStudentLimit = 5; 
         filterAndRenderStudents(); 
     }
 
     async function loadAttendanceData() {
         attendanceData = await fetchSheetData(TAB_ABSENSI, 'attendanceError');
-        renderAttendanceTable(); updateDashboard();
+        renderAttendanceTable(); 
+        updateDashboard();
     }
 
     function renderAttendanceTable() {
-        const cls = document.getElementById('attendanceClassFilter').value, date = document.getElementById('attendanceDateFilter').value;
+        const cls = document.getElementById('attendanceClassFilter').value;
+        const date = document.getElementById('attendanceDateFilter').value;
+        
         const filtered = attendanceData.filter(r => {
             const reason = (r.Alasan||'').trim().toUpperCase();
             const valid = ['IZIN','SAKIT','ALPHA','ALPA'].includes(reason);
-            if(!valid) return false; if(cls!=='all' && (r.Kelas||'') !== cls) return false; if(date && (r.Tanggal||'') !== date) return false; return true;
+            if(!valid) return false; 
+            if(cls!=='all' && (r.Kelas||'') !== cls) return false; 
+            if(date && (r.Tanggal||'') !== date) return false; 
+            return true;
         });
+        
         const tbody = document.querySelector('#attendanceTable tbody');
-        if(!filtered.length) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Tidak ada data</td></tr>'; return; }
+        if(!filtered.length) { 
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Tidak ada数据</td></tr>'; 
+            return; 
+        }
+        
         tbody.innerHTML = filtered.map(r => {
             const reason = (r.Alasan||'').trim().toUpperCase();
             let badge = reason==='IZIN'?'badge-izin':reason==='SAKIT'?'badge-sakit':'badge-alpha';
@@ -680,31 +769,86 @@
             </tr>`;
         }).join('');
     }
-    function resetAttendanceFilter() { document.getElementById('attendanceClassFilter').value='all'; document.getElementById('attendanceDateFilter').value=''; renderAttendanceTable(); }
+
+    function resetAttendanceFilter() { 
+        document.getElementById('attendanceClassFilter').value='all'; 
+        document.getElementById('attendanceDateFilter').value=''; 
+        renderAttendanceTable(); 
+    }
 
     async function loadNilaiData() {
-        for(let i=0; i<TAB_NILAI.length; i++) nilaiCache[KELAS_LIST[i]] = await fetchSheetData(TAB_NILAI[i], null);
+        for(let i=0; i<TAB_NILAI.length; i++) {
+            nilaiCache[KELAS_LIST[i]] = await fetchSheetData(TAB_NILAI[i], null);
+        }
         renderGradesGrid();
     }
+
     function renderGradesGrid() {
         const container = document.getElementById('gradesGridList');
         let html = '';
         KELAS_LIST.forEach(k => {
-            const data = (nilaiCache[k]||[]).slice(1);
-            const count = data.length; let total = 0, n = 0;
-            data.forEach(r => { const s = parseFloat(r.Final_Score||r['Final_Score']); if(!isNaN(s)) { total+=s; n++; } });
+            const data = (nilaiCache[k]||[]); 
+            const rows = data.slice(1); 
+            const count = rows.length; 
+            let total = 0, n = 0;
+            rows.forEach(r => { 
+                const s = parseFloat(r.Final_Score||r['Final_Score']); 
+                if(!isNaN(s)) { total+=s; n++; } 
+            });
             const avg = n ? Math.round(total/n) : 0;
             html += `<div class="grade-card" onclick="showGradeDetail('${k}')"><div class="gc-icon"><i class="fas fa-chalkboard"></i></div><div class="gc-title">${k}</div><div class="gc-sub">${count} Siswa</div><div class="gc-score">Avg: ${avg}</div></div>`;
         });
         container.innerHTML = html;
     }
+
     function showGradeDetail(k) {
+        currentGradeClass = k;
         const data = (nilaiCache[k]||[]).slice(1);
         document.getElementById('gradesBundleContainer').style.display='none';
         document.getElementById('gradesDetailContainer').style.display='block';
-        document.getElementById('gradesDetailContent').innerHTML = `<div class="table-wrap"><table><thead><tr><th>No</th><th>Nama</th><th>Task</th><th>Quiz</th><th>PTS</th><th>PAS</th><th>Mid</th><th>Final</th></tr></thead><tbody>${data.map((r,i)=>{ const f=r.Final_Score||r['Final_Score']||0; let c=f>=80?'score-high':f>=70?'score-mid':'score-low'; return `<tr><td>${i+1}</td><td style="font-weight:600">${r.Student_Name||r['Student_Name']}</td><td>${r.Task||'-'}</td><td>${r.Quiz||'-'}</td><td>${r.PTS||'-'}</td><td>${r.PAS||'-'}</td><td>${r.Mid_Score||r['Mid_Score']||'-'}</td><td>${f?`<span class="${c}">${f}</span>`:'-'}</td></tr>`}).join('')}</tbody></table></div>`;
+        document.getElementById('printGradeClass').innerHTML = `Kelas: ${k}`;
+        document.getElementById('gradeSignatureFooter').style.display = 'block';
+        document.getElementById('gradesDetailContent').innerHTML = `
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr><th>No</th><th>Nama</th><th>Task</th><th>Quiz</th><th>PTS</th><th>PAS</th><th>Mid</th><th>Final</th></tr>
+                    </thead>
+                    <tbody>
+                        ${data.map((r,i)=>{
+                            const f=r.Final_Score||r['Final_Score']||0; 
+                            let c=f>=80?'score-high':f>=70?'score-mid':'score-low'; 
+                            return `<tr>
+                                <td>${i+1}</td>
+                                <td style="font-weight:600">${r.Student_Name||r['Student Name']}</td>
+                                <td>${r.Task||'-'}</td>
+                                <td>${r.Quiz||'-'}</td>
+                                <td>${r.PTS||'-'}</td>
+                                <td>${r.PAS||'-'}</td>
+                                <td>${r.Mid_Score||r['Mid Score']||'-'}</td>
+                                <td>${f?`<span class="${c}">${f}</span>`:'-'}</td>
+                            </tr>`;
+                        }).join('')}
+                    </tbody>
+                </table>
+            </div>`;
     }
-    function backToGradesBundle() { document.getElementById('gradesBundleContainer').style.display='block'; document.getElementById('gradesDetailContainer').style.display='none'; }
+
+    function backToGradesBundle() { 
+        currentGradeClass = '';
+        document.getElementById('gradesBundleContainer').style.display='block'; 
+        document.getElementById('gradesDetailContainer').style.display='none';
+        document.getElementById('gradeSignatureFooter').style.display = 'none';
+        document.getElementById('printGradeClass').innerHTML = '';
+    }
+
+    function printCurrentGrade() {
+        if (currentGradeClass) {
+            window.print();
+        } else {
+            alert('Silakan pilih kelas terlebih dahulu dengan mengklik kartu kelas.');
+        }
+    }
 
     function updateDashboard() {
         document.getElementById('totalStudents').innerText = studentData.length;
@@ -712,58 +856,162 @@
         studentData.forEach(s => clsMap[s.cls] = (clsMap[s.cls]||0)+1);
         document.getElementById('totalClasses').innerText = Object.keys(clsMap).length;
         
-        let totalS = studentData.length, totalA = 0;
-        ['IZIN','SAKIT','ALPHA','ALPA'].forEach(status => totalA += attendanceData.filter(r => (r.Alasan||'').trim().toUpperCase()===status).length);
+        let totalS = studentData.length;
+        let totalA = 0; 
+        let stats = { IZIN: 0, SAKIT: 0, ALPHA: 0 };
+        
+        attendanceData.forEach(r => {
+            const reason = (r.Alasan||'').trim().toUpperCase();
+            if (['IZIN','SAKIT','ALPHA','ALPA'].includes(reason)) {
+                totalA++;
+                if (reason === 'IZIN') stats.IZIN++;
+                if (reason === 'SAKIT') stats.SAKIT++;
+                if (reason === 'ALPHA' || reason === 'ALPA') stats.ALPHA++;
+            }
+        });
+        
         const rate = totalS ? Math.round(((totalS-totalA)/totalS)*100) : 0;
         document.getElementById('attendanceRate').innerText = rate+'%';
 
-        const labels = Object.keys(clsMap).sort(); const counts = labels.map(k => clsMap[k]);
+        const labels = Object.keys(clsMap).sort(); 
+        const counts = labels.map(k => clsMap[k]);
         
         if(c1) c1.destroy();
         const ctx1 = document.getElementById('classChart').getContext('2d');
-        c1 = new Chart(ctx1, { type: 'bar', data: { labels, datasets: [{ label: 'Siswa', data: counts, backgroundColor: '#064e3b', borderRadius: 6, barThickness: 'flex', maxBarThickness: 30 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color:'#f1f5f9' }, ticks: { font: { size: 10 } } }, x: { grid: { display: false }, ticks: { font: { size: 10 } } } } } });
+        c1 = new Chart(ctx1, { 
+            type: 'bar', 
+            data: { 
+                labels, 
+                datasets: [{ 
+                    label: 'Siswa', 
+                    data: counts, 
+                    backgroundColor: '#064e3b', 
+                    borderRadius: 6, 
+                    barThickness: 'flex', 
+                    maxBarThickness: 30 
+                }] 
+            }, 
+            options: { 
+                responsive: true, 
+                maintainAspectRatio: false, 
+                plugins: { legend: { display: false } }, 
+                scales: { 
+                    y: { beginAtZero: true, grid: { color:'#f1f5f9' }, ticks: { font: { size: 10 } } }, 
+                    x: { grid: { display: false }, ticks: { font: { size: 10 } } } 
+                } 
+            } 
+        });
 
         if(c2) c2.destroy();
         const ctx2 = document.getElementById('attendanceChart').getContext('2d');
-        c2 = new Chart(ctx2, { type: 'doughnut', data: { labels: ['Hadir','Izin','Sakit','Alpha'], datasets: [{ data: [totalS-totalA, attendanceData.filter(r=>(r.Alasan||'').trim().toUpperCase()==='IZIN').length, attendanceData.filter(r=>(r.Alasan||'').trim().toUpperCase()==='SAKIT').length, attendanceData.filter(r=>['ALPHA','ALPA'].includes((r.Alasan||'').trim().toUpperCase())).length], backgroundColor: ['#10b981','#fbbf24','#3b82f6','#ef4444'], borderWidth:0 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '75%', plugins: { legend: { display: false } } } });
+        const presentCount = totalS - totalA;
+        c2 = new Chart(ctx2, { 
+            type: 'doughnut', 
+            data: { 
+                labels: ['Hadir','Izin','Sakit','Alpha'], 
+                datasets: [{ 
+                    data: [presentCount, stats.IZIN, stats.SAKIT, stats.ALPHA], 
+                    backgroundColor: ['#10b981','#fbbf24','#3b82f6','#ef4444'], 
+                    borderWidth:0 
+                }] 
+            }, 
+            options: { 
+                responsive: true, 
+                maintainAspectRatio: false, 
+                cutout: '75%', 
+                plugins: { legend: { display: false } } 
+            } 
+        });
 
-        const dates = attendanceData.map(r=>r.Tanggal).filter(d=>d).sort().reverse(); const last = dates[0];
-        const list = document.getElementById('activityList'); const title = document.getElementById('activityTitle');
-        if(!last) { title.innerHTML = '<i class="fas fa-history"></i> Aktivitas Terbaru'; list.innerHTML = 'Belum ada data.'; return; }
-        title.innerHTML = `<i class="fas fa-calendar-day"></i> ${last.split('-').reverse().join('/')}`;
-        const acts = attendanceData.filter(r => r.Tanggal===last && ['IZIN','SAKIT','ALPHA','ALPA'].includes((r.Alasan||'').trim().toUpperCase()));
-        if(!acts.length) { list.innerHTML = '<div style="text-align:center; padding:10px; color:#10b981; font-weight:600;">Semua siswa hadir ✅</div>'; return; }
-        list.innerHTML = acts.map((a,i) => { const r=(a.Alasan||'').trim().toUpperCase(); const b=r==='IZIN'?'badge-izin':r==='SAKIT'?'badge-sakit':'badge-alpha'; return `<div class="act-item"><span style="font-weight:600;">${i+1}. ${a['Siswa Absen']||a.Siswa_Absen}</span><span class="${b}">${r}</span></div>`; }).join('');
+        const sortedAttendance = [...attendanceData].sort((a,b) => (b.Tanggal||'').localeCompare(a.Tanggal||''));
+        const latestDate = sortedAttendance[0]?.Tanggal || '';
+        const list = document.getElementById('activityList'); 
+        const title = document.getElementById('activityTitle');
+        
+        if(!latestDate) { 
+            title.innerHTML = '<i class="fas fa-history"></i> Aktivitas Terbaru'; 
+            list.innerHTML = 'Belum ada data.'; 
+            return; 
+        }
+
+        title.innerHTML = `<i class="fas fa-calendar-day"></i> ${latestDate.split('-').reverse().join('/')}`;
+        const acts = attendanceData.filter(r => r.Tanggal===latestDate && ['IZIN','SAKIT','ALPHA','ALPA'].includes((r.Alasan||'').trim().toUpperCase()));
+        
+        if(!acts.length) { 
+            list.innerHTML = '<div style="text-align:center; padding:10px; color:#10b981; font-weight:600;">Semua siswa hadir ✅</div>'; 
+            return; 
+        }
+        
+        list.innerHTML = acts.map((a,i) => { 
+            const r=(a.Alasan||'').trim().toUpperCase(); 
+            const b=r==='IZIN'?'badge-izin':r==='SAKIT'?'badge-sakit':'badge-alpha'; 
+            return `<div class="act-item"><span style="font-weight:600;">${i+1}. ${a['Siswa Absen']||a.Siswa_Absen}</span><span class="${b}">${r}</span></div>`; 
+        }).join('');
     }
 
-    // Nav Logic
-    const views = { dashboard: document.getElementById('dashboardView'), students: document.getElementById('studentsView'), attendance: document.getElementById('attendanceView'), grades: document.getElementById('gradesView'), morphea: document.getElementById('morpheaView'), profil: document.getElementById('profilView') };
-    const titleMap = { dashboard:'Dashboard', students:'Data Siswa', attendance:'Absensi', grades:'Nilai Siswa', morphea:'Morphea', profil:'Profil Guru' };
+    // --- NAV LOGIC DENGAN RESET NILAI KE BUNDLE ---
+    const views = { 
+        dashboard: document.getElementById('dashboardView'), 
+        students: document.getElementById('studentsView'), 
+        attendance: document.getElementById('attendanceView'), 
+        grades: document.getElementById('gradesView'), 
+        morphea: document.getElementById('morpheaView'), 
+        profil: document.getElementById('profilView') 
+    };
+    const titleMap = { 
+        dashboard:'Dashboard', 
+        students:'Data Siswa', 
+        attendance:'Absensi', 
+        grades:'Nilai Siswa', 
+        morphea:'Morphea', 
+        profil:'Profil Guru' 
+    };
+
     document.querySelectorAll('.nav-item').forEach(item => {
         item.addEventListener('click', () => {
             const v = item.dataset.view;
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active')); item.classList.add('active');
-            Object.values(views).forEach(el => el.classList.remove('active')); views[v].classList.add('active');
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active')); 
+            item.classList.add('active');
+            Object.values(views).forEach(el => el.classList.remove('active')); 
+            views[v].classList.add('active');
             document.getElementById('pageTitle').innerText = titleMap[v];
             document.getElementById('contentArea').scrollTo({ top: 0, behavior: 'smooth' });
             if(sidebar.classList.contains('open')) toggleSidebar();
+            
+            // RESET: Jika pindah DARI halaman Grades KE halaman lain, reset ke bundle
+            if (v !== 'grades') {
+                // Saat meninggalkan halaman grades, reset tampilan ke bundle
+                if (document.getElementById('gradesBundleContainer').style.display === 'none') {
+                    backToGradesBundle();
+                }
+            }
+            
             if(v==='dashboard') updateDashboard();
             if(v==='grades' && !Object.keys(nilaiCache).length) loadNilaiData();
         });
     });
 
+    // --- EVENT LISTENERS ---
     document.getElementById('studentClassFilter').addEventListener('change', () => { 
-        currentStudentLimit = 10; 
+        currentStudentLimit = 5; 
         filterAndRenderStudents(); 
     });
     document.getElementById('searchStudent').addEventListener('keyup', () => { 
-        currentStudentLimit = 10; 
+        currentStudentLimit = 5; 
         filterAndRenderStudents(); 
     });
     document.getElementById('attendanceClassFilter').addEventListener('change', renderAttendanceTable);
 
     window.addEventListener('load', initApp);
-    window.showGradeDetail = showGradeDetail; window.backToGradesBundle = backToGradesBundle;
+    window.showGradeDetail = showGradeDetail; 
+    window.backToGradesBundle = backToGradesBundle;
+    window.loadMoreStudents = loadMoreStudents;
+    window.resetStudentFilter = resetStudentFilter;
+    window.renderAttendanceTable = renderAttendanceTable;
+    window.resetAttendanceFilter = resetAttendanceFilter;
+    window.loadAttendanceData = loadAttendanceData;
+    window.loadStudentData = loadStudentData;
+    window.printCurrentGrade = printCurrentGrade;
 </script>
 </body>
 </html>
