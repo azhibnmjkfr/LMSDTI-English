@@ -462,7 +462,7 @@
             <div class="load-more-container" id="loadMoreContainer" style="display:none;"><button class="btn btn-load-more" onclick="loadMoreStudents()">Muat Lebih Banyak <i class="fas fa-chevron-down"></i></button></div>
         </div>
 
-        <!-- ABSENSI -->
+        <!-- ABSENSI - Footer dihapus -->
         <div id="attendanceView" class="view-section">
             <div class="toolbar">
                 <div style="flex:1; min-width: 120px;"><select id="attendanceClassFilter"><option value="all">Semua Kelas</option><option value="8A">8A</option><option value="9A">9A</option><option value="9B">9B</option><option value="9C">9C</option><option value="9D">9D</option></select></div>
@@ -470,15 +470,13 @@
                 <div style="display:flex; gap:8px;"><button class="btn btn-outline" onclick="renderAttendanceTable()"><i class="fas fa-search"></i></button><button class="btn btn-outline" onclick="resetAttendanceFilter()">Reset</button><button class="btn btn-outline" onclick="loadAttendanceData()"><i class="fas fa-sync"></i></button></div>
             </div>
             <div id="attendanceError" style="display:none; color:red; font-size:0.75rem; margin-bottom:10px; text-align:center;"></div>
-            <div class="table-wrap"><table id="attendanceTable"><thead><tr><th>Tanggal</th><th>Kelas</th><th>Siswa</th><th>Status</th><th>Materi</th></tr></thead><tbody><tr><td colspan="5" style="text-align:center;">Loading...</td></tr></tbody></table></div>
-            <div class="main-footer">Developed by <strong>Ahmad Zaman Huri</strong></div>
+            <div class="table-wrap"><table id="attendanceTable"><thead><tr><th>Tanggal</th><th>Kelas</th><th>Siswa</th><th>Status</th><th>Materi</th></tr></thead><tbody><td><td colspan="5" style="text-align:center;">Loading...</td></tr></tbody></table></div>
         </div>
 
-        <!-- NILAI -->
+        <!-- NILAI - Footer dihapus -->
         <div id="gradesView" class="view-section">
             <div id="gradesBundleContainer"><div class="grades-grid" id="gradesGridList"></div></div>
             <div id="gradesDetailContainer" style="display:none;"><button class="btn btn-back" onclick="backToGradesBundle()"><i class="fas fa-arrow-left"></i> Kembali</button><div id="gradesDetailContent"></div></div>
-            <div class="main-footer" style="margin-top:auto">Developed by <strong>Ahmad Zaman Huri</strong></div>
         </div>
 
         <!-- MORPHEA - tanpa footer dalam kartu -->
@@ -541,11 +539,11 @@
                 </a>
             </div>
         </div>
+    </div>
 
-        <!-- GLOBAL FOOTER (HANYA SATU) -->
-        <div class="main-footer">
-            &copy; 2026 LMS English | Developed by <strong>Ahmad Zaman Huri</strong>
-        </div>
+    <!-- GLOBAL FOOTER (HANYA SATU) -->
+    <div class="main-footer">
+        &copy; 2026 LMS English | Developed by <strong>Ahmad Zaman Huri</strong>
     </div>
 </div>
 
@@ -669,7 +667,7 @@
             if(!valid) return false; if(cls!=='all' && (r.Kelas||'') !== cls) return false; if(date && (r.Tanggal||'') !== date) return false; return true;
         });
         const tbody = document.querySelector('#attendanceTable tbody');
-        if(!filtered.length) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Tidak ada数据</td></tr>'; return; }
+        if(!filtered.length) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Tidak ada data</td></tr>'; return; }
         tbody.innerHTML = filtered.map(r => {
             const reason = (r.Alasan||'').trim().toUpperCase();
             let badge = reason==='IZIN'?'badge-izin':reason==='SAKIT'?'badge-sakit':'badge-alpha';
