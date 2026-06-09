@@ -786,7 +786,7 @@
 
         const tbody = document.querySelector('#attendanceTable tbody');
         if(!filtered.length) { 
-            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Tidak ada数据</td></tr>'; 
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Tidak ada data</td></tr>'; 
             return; 
         }
 
@@ -956,23 +956,34 @@
             } 
         });
 
-        const sortedAttendance = [...attendanceData].sort((a,b) => (b.Tanggal||'').localeCompare(a.Tanggal||''));
-        const latestDate = sortedAttendance[0]?.Tanggal || '';
+        // ========== PERUBAHAN: Ambil 3 siswa absen TERAKHIR (berdasarkan urutan data) ==========
+        // Urutkan data absensi dari yang terbaru (tanggal descending)
+        const sortedByDate = [...attendanceData].sort((a,b) => (b.Tanggal||'').localeCompare(a.Tanggal||''));
+        const acts = [];
+        for (let i = 0; i < sortedByDate.length && acts.length < 3; i++) {
+            const r = sortedByDate[i];
+            const reason = (r.Alasan||'').trim().toUpperCase();
+            if (['IZIN','SAKIT','ALPHA','ALPA'].includes(reason)) {
+                acts.push(r);
+            }
+        }
+        // ========== END PERUBAHAN ==========
+
         const list = document.getElementById('activityList'); 
         const title = document.getElementById('activityTitle');
 
-        if(!latestDate) { 
+        if(acts.length === 0) { 
             title.innerHTML = '<i class="fas fa-history"></i> Aktivitas Terbaru'; 
-            list.innerHTML = 'Belum ada data.'; 
+            list.innerHTML = '<div style="text-align:center; padding:10px; color:#10b981; font-weight:600;">SEMUA SISWA HADIR DALAM SATU BULAN TERAKHIR</div>'; 
             return; 
         }
 
-        title.innerHTML = `<i class="fas fa-calendar-day"></i> ${latestDate.split('-').reverse().join('/')}`;
-        const acts = attendanceData.filter(r => r.Tanggal===latestDate && ['IZIN','SAKIT','ALPHA','ALPA'].includes((r.Alasan||'').trim().toUpperCase()));
-
-        if(!acts.length) { 
-            list.innerHTML = '<div style="text-align:center; padding:10px; color:#10b981; font-weight:600;">Semua siswa hadir ✅</div>'; 
-            return; 
+        // Tampilkan judul dengan tanggal terbaru dari data yang ditampilkan (optional)
+        const latestDate = acts[0]?.Tanggal || '';
+        if(latestDate) {
+            title.innerHTML = `<i class="fas fa-calendar-day"></i> ${latestDate.split('-').reverse().join('/')}`;
+        } else {
+            title.innerHTML = '<i class="fas fa-history"></i> Aktivitas Terbaru';
         }
 
         list.innerHTML = acts.map((a,i) => { 
