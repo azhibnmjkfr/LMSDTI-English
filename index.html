@@ -3,11 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    
+
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#064e3b">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="LMS English">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="LMS English">
+    <meta name="msapplication-TileColor" content="#064e3b">
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="icons/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="icons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="icons/apple-touch-icon-76x76.png">
+    <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#064e3b">
+
+    <!-- Open Graph / Social -->
     <meta property="og:title" content="LMS English - MTsT Daarut Tahfizh">
     <meta property="og:description" content="Platform pembelajaran bahasa Inggris oleh Ahmad Zaman Huri, S.Pd.">
     <meta property="og:url" content="https://azhibnmjkfr.github.io/LMSDTI-English/">
-    
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://azhibnmjkfr.github.io/LMSDTI-English/icons/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LMS English - MTsT Daarut Tahfizh">
+    <meta name="twitter:description" content="Platform pembelajaran bahasa Inggris oleh Ahmad Zaman Huri, S.Pd.">
+    <meta name="twitter:image" content="https://azhibnmjkfr.github.io/LMSDTI-English/icons/og-image.png">
+
     <title>LMS English - Premium</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -26,7 +59,7 @@
             --header-h: 64px;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
-        
+
         body { background: var(--bg); color: var(--text); height: 100vh; overflow: hidden; position: relative; overscroll-behavior-y: contain; }
 
         /* --- LOADING SCREEN --- */
@@ -76,7 +109,7 @@
         .nav-item.morphea-nav { margin-top: 24px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); }
         .nav-item.profil-nav { margin-top: 8px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); }
         .sidebar-footer { padding: 24px; font-size: 0.7rem; color: rgba(255,255,255,0.4); text-align: center; border-top: 1px solid rgba(255,255,255,0.1); margin-top: auto; }
-        
+
         /* --- MAIN CONTENT --- */
         .main-content { width: 100%; height: 100%; display: flex; flex-direction: column; position: relative; }
         header {
@@ -450,7 +483,7 @@
                 <p><strong>Ahmad Zaman Huri, S.Pd.</strong> - Guru Mata Pelajaran Bahasa Inggris</p>
                 <p>MTsT Daarut Tahfizh | Tahun Ajaran 2026</p>
             </div>
-            
+
             <div class="dashboard-layout">
                 <div class="stats-grid">
                     <div class="stat-card">
@@ -487,7 +520,7 @@
                     <div class="activity-list" id="activityList"><div style="text-align:center; padding: 20px; color: #94a3b8;">Memuat...</div></div>
                 </div>
             </div>
-            
+
             <!-- Footer Tanda Tangan untuk print -->
             <div class="signature-footer">
                 <div class="signature-line">
@@ -601,7 +634,7 @@
     function getCsvUrl(tab) { 
         return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(tab)}`; 
     }
-    
+
     // --- UI LOGIC ---
     const sidebar = document.getElementById('sidebar'), overlay = document.getElementById('sidebarOverlay'), menuBtn = document.getElementById('menuBtn');
     function toggleSidebar() {
@@ -693,7 +726,7 @@
         const list = document.getElementById('studentListContainer');
         const toShow = filteredStudentData.slice(0, currentStudentLimit);
         const loadMoreBtn = document.getElementById('loadMoreContainer');
-        
+
         if(toShow.length === 0) { 
             list.innerHTML = '<div style="text-align:center; padding:40px; color:#94a3b8;">Data tidak ditemukan</div>'; 
             loadMoreBtn.style.display = 'none'; 
@@ -741,7 +774,7 @@
     function renderAttendanceTable() {
         const cls = document.getElementById('attendanceClassFilter').value;
         const date = document.getElementById('attendanceDateFilter').value;
-        
+
         const filtered = attendanceData.filter(r => {
             const reason = (r.Alasan||'').trim().toUpperCase();
             const valid = ['IZIN','SAKIT','ALPHA','ALPA'].includes(reason);
@@ -750,13 +783,13 @@
             if(date && (r.Tanggal||'') !== date) return false; 
             return true;
         });
-        
+
         const tbody = document.querySelector('#attendanceTable tbody');
         if(!filtered.length) { 
             tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Tidak ada数据</td></tr>'; 
             return; 
         }
-        
+
         tbody.innerHTML = filtered.map(r => {
             const reason = (r.Alasan||'').trim().toUpperCase();
             let badge = reason==='IZIN'?'badge-izin':reason==='SAKIT'?'badge-sakit':'badge-alpha';
@@ -855,11 +888,11 @@
         const clsMap = {};
         studentData.forEach(s => clsMap[s.cls] = (clsMap[s.cls]||0)+1);
         document.getElementById('totalClasses').innerText = Object.keys(clsMap).length;
-        
+
         let totalS = studentData.length;
         let totalA = 0; 
         let stats = { IZIN: 0, SAKIT: 0, ALPHA: 0 };
-        
+
         attendanceData.forEach(r => {
             const reason = (r.Alasan||'').trim().toUpperCase();
             if (['IZIN','SAKIT','ALPHA','ALPA'].includes(reason)) {
@@ -869,13 +902,13 @@
                 if (reason === 'ALPHA' || reason === 'ALPA') stats.ALPHA++;
             }
         });
-        
+
         const rate = totalS ? Math.round(((totalS-totalA)/totalS)*100) : 0;
         document.getElementById('attendanceRate').innerText = rate+'%';
 
         const labels = Object.keys(clsMap).sort(); 
         const counts = labels.map(k => clsMap[k]);
-        
+
         if(c1) c1.destroy();
         const ctx1 = document.getElementById('classChart').getContext('2d');
         c1 = new Chart(ctx1, { 
@@ -927,7 +960,7 @@
         const latestDate = sortedAttendance[0]?.Tanggal || '';
         const list = document.getElementById('activityList'); 
         const title = document.getElementById('activityTitle');
-        
+
         if(!latestDate) { 
             title.innerHTML = '<i class="fas fa-history"></i> Aktivitas Terbaru'; 
             list.innerHTML = 'Belum ada data.'; 
@@ -936,12 +969,12 @@
 
         title.innerHTML = `<i class="fas fa-calendar-day"></i> ${latestDate.split('-').reverse().join('/')}`;
         const acts = attendanceData.filter(r => r.Tanggal===latestDate && ['IZIN','SAKIT','ALPHA','ALPA'].includes((r.Alasan||'').trim().toUpperCase()));
-        
+
         if(!acts.length) { 
             list.innerHTML = '<div style="text-align:center; padding:10px; color:#10b981; font-weight:600;">Semua siswa hadir ✅</div>'; 
             return; 
         }
-        
+
         list.innerHTML = acts.map((a,i) => { 
             const r=(a.Alasan||'').trim().toUpperCase(); 
             const b=r==='IZIN'?'badge-izin':r==='SAKIT'?'badge-sakit':'badge-alpha'; 
@@ -977,7 +1010,7 @@
             document.getElementById('pageTitle').innerText = titleMap[v];
             document.getElementById('contentArea').scrollTo({ top: 0, behavior: 'smooth' });
             if(sidebar.classList.contains('open')) toggleSidebar();
-            
+
             // RESET: Jika pindah DARI halaman Grades KE halaman lain, reset ke bundle
             if (v !== 'grades') {
                 // Saat meninggalkan halaman grades, reset tampilan ke bundle
@@ -985,7 +1018,7 @@
                     backToGradesBundle();
                 }
             }
-            
+
             if(v==='dashboard') updateDashboard();
             if(v==='grades' && !Object.keys(nilaiCache).length) loadNilaiData();
         });
