@@ -786,7 +786,7 @@
 
         const tbody = document.querySelector('#attendanceTable tbody');
         if(!filtered.length) { 
-            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Tidak ada data</td></tr>'; 
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Tidak ada数据</td></tr>'; 
             return; 
         }
 
@@ -883,6 +883,31 @@
         }
     }
 
+    // ========== FUNGSI BARU: Konversi DD-MM-YY ke Date object ==========
+    function parseDateDDMMYY(dateStr) {
+        if (!dateStr) return new Date(0); // tanggal kosong dianggap paling lama
+        // Bersihkan spasi
+        dateStr = dateStr.trim();
+        // Cek format DD-MM-YY atau DD/MM/YY
+        let parts = dateStr.includes('-') ? dateStr.split('-') : dateStr.split('/');
+        if (parts.length !== 3) return new Date(0);
+        
+        let day = parseInt(parts[0], 10);
+        let month = parseInt(parts[1], 10) - 1; // bulan dimulai dari 0
+        let year = parseInt(parts[2], 10);
+        
+        // Konversi 2 digit tahun ke 4 digit (asumsi 20xx)
+        if (year < 100) {
+            year = 2000 + year;
+        }
+        
+        let date = new Date(year, month, day);
+        // Validasi
+        if (isNaN(date.getTime())) return new Date(0);
+        return date;
+    }
+    // ========== END FUNGSI BARU ==========
+
     function updateDashboard() {
         document.getElementById('totalStudents').innerText = studentData.length;
         const clsMap = {};
@@ -956,17 +981,22 @@
             } 
         });
 
-        // ========== PERUBAHAN: Ambil 3 siswa absen TERAKHIR (berdasarkan urutan data) ==========
-        // Urutkan data absensi dari yang terbaru (tanggal descending)
-        const sortedByDate = [...attendanceData].sort((a,b) => (b.Tanggal||'').localeCompare(a.Tanggal||''));
-        const acts = [];
-        for (let i = 0; i < sortedByDate.length && acts.length < 3; i++) {
-            const r = sortedByDate[i];
+        // ========== PERUBAHAN: Sorting berdasarkan TANGGAL dengan format DD-MM-YY ==========
+        // Buat salinan data absensi, filter hanya yang tidak hadir (IZIN/SAKIT/ALPHA)
+        const absentData = attendanceData.filter(r => {
             const reason = (r.Alasan||'').trim().toUpperCase();
-            if (['IZIN','SAKIT','ALPHA','ALPA'].includes(reason)) {
-                acts.push(r);
-            }
-        }
+            return ['IZIN','SAKIT','ALPHA','ALPA'].includes(reason);
+        });
+        
+        // Sortir berdasarkan tanggal (DD-MM-YY) dari yang TERBARU ke TERLAMA
+        absentData.sort((a, b) => {
+            const dateA = parseDateDDMMYY(a.Tanggal);
+            const dateB = parseDateDDMMYY(b.Tanggal);
+            return dateB - dateA; // descending (terbaru dulu)
+        });
+        
+        // Ambil 3 data terbaru
+        const acts = absentData.slice(0, 3);
         // ========== END PERUBAHAN ==========
 
         const list = document.getElementById('activityList'); 
@@ -978,10 +1008,10 @@
             return; 
         }
 
-        // Tampilkan judul dengan tanggal terbaru dari data yang ditampilkan (optional)
+        // Tampilkan judul dengan tanggal terbaru (dari data pertama setelah sorting)
         const latestDate = acts[0]?.Tanggal || '';
         if(latestDate) {
-            title.innerHTML = `<i class="fas fa-calendar-day"></i> ${latestDate.split('-').reverse().join('/')}`;
+            title.innerHTML = `<i class="fas fa-calendar-day"></i> ${latestDate}`;
         } else {
             title.innerHTML = '<i class="fas fa-history"></i> Aktivitas Terbaru';
         }
